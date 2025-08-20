@@ -1,0 +1,138 @@
+@import url("https://fonts.googleapis.com/css2?family=Just+Another+Hand&family=Livvic:wght@400;700&display=swap");
+
+.login-page {
+  background-color: white !important;
+  color: #111827 !important;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, sans-serif;
+
+  // Override tous les styles globaux
+  * {
+    color: #111827 !important;
+  }
+
+  // Container principal centré
+  .login-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 1.5rem;
+  }
+
+  // Section logo et titre
+  .logo-section {
+    margin-bottom: 2.5rem;
+    text-align: center;
+
+    img {
+      width: 300px; // w-36 de Tailwind
+      height: auto;
+      margin: 0 auto;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #111827 !important;
+      font-family: 'Just Another Hand', sans-serif;
+    }
+  }
+
+  // Formulaire
+  .form-container {
+    width: 100%;
+    max-width: 384px; // max-w-sm de Tailwind
+
+    form {
+      .form-group {
+        margin-bottom: 1.5rem;
+
+        label {
+          display: block;
+          font-size: 0.875rem;
+          font-weight: 500;
+          color: #111827 !important;
+          margin-bottom: 0.5rem;
+        }
+
+        input {
+          margin-top: 0.5rem;
+          display: block;
+          width: 100%;
+          border-radius: 1rem;
+          border: 1px solid #d1d5db;
+          background-color: white;
+          padding: 0.5rem 0.75rem;
+          color: #111827 !important;
+          font-size: 0.875rem;
+
+          &:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+          }
+        }
+      }
+
+      .password-section {
+        .forgot-link {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 0.5rem;
+
+          a {
+            font-size: 0.875rem;
+            color: #4f46e5 !important;
+            text-decoration: none;
+
+            &:hover {
+              color: #4338ca !important;
+            }
+          }
+        }
+      }
+
+      .submit-btn {
+        width: 100%;
+        border-radius: 1rem;
+        background-color: #4f46e5;
+        padding: 0.5rem 0.75rem;
+        color: white !important;
+        font-weight: 500;
+        border: none;
+        cursor: pointer;
+        margin-top: 1.5rem;
+
+        &:hover {
+          background-color: #4338ca;
+        }
+
+        &:focus {
+          outline: none;
+          box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.5);
+        }
+      }
+    }
+
+    .register-link {
+      margin-top: 1.5rem;
+      text-align: center;
+      font-size: 0.875rem;
+      color: #6b7280 !important;
+
+      a {
+        font-weight: 500;
+        color: #4f46e5 !important;
+        text-decoration: none;
+
+        &:hover {
+          color: #4338ca !important;
+        }
+      }
+    }
+  }
+}

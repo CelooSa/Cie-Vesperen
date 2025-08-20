@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=Just+Another+Hand&family=Livvic:wght@400;700&display=swap");
+
+
+.artists {
+  padding-top: 100px;
+  padding-bottom: 4rem;
+  background-color: #0a0a0a;
+  color: #f5f5f5;
+  min-height: 100vh;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .title {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #f5f5f5;
+  }
+
+  .intro {
+    text-align: center;
+    color: #ccc;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 3rem auto;
+    line-height: 1.7;
+  }
+
+  .artists-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .card {
+    background-color: #1a1a1a;
+    padding: 2rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+    }
+
+    .name {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #f5f5f5;
+    }
+
+    .discipline {
+      color: #ccc;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+    }
+
+    .bio {
+      color: #ccc;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .quote {
+      font-style: italic;
+      color: #f5f5f5;
+      position: relative;
+      padding-left: 1rem;
+      border-left: 2px solid #f5f5f5;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+  }
+}
