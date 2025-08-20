@@ -1,0 +1,105 @@
+@import url("https://fonts.googleapis.com/css2?family=Just+Another+Hand&family=Livvic:wght@400;700&display=swap");
+
+.spectacles {
+  padding-top: 100px;
+  padding-bottom: 4rem;
+  background-color: #0a0a0a;
+  color: #f5f5f5;
+  min-height: 100vh;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .title {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #f5f5f5;
+  }
+
+  .intro {
+    text-align: center;
+    color: #ccc;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 3rem auto;
+    line-height: 1.7;
+  }
+
+  .spectacles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .card {
+    background-color: #1a1a1a;
+    padding: 2rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(100, 108, 255, 0.3); // effet lumineux
+      background-color: #2a2a2a;
+    }
+
+    .image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .title {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #f5f5f5;
+    }
+
+    .subtitle {
+      color: #ccc;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+    }
+
+    .description {
+      color: #ccc;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .details {
+      font-size: 0.9rem;
+      color: #ccc;
+      margin-bottom: 1rem;
+
+      span {
+        font-weight: 700;
+        color: #f5f5f5;
+      }
+    }
+
+    .button {
+      background: linear-gradient(to right, #646cff, #c56cff);
+      color: #fff;
+      padding: 0.5rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: linear-gradient(to right, #5058e0, #b44fe0);
+      }
+    }
+  }
+}
