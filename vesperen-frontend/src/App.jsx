@@ -8,6 +8,9 @@ import LoginPage from "./pages/auth/Login";
 
 import Home from "./pages/Home";
 import Artists from "./pages/Artists";
+import Spectacles from "./pages/Spectacles";
+import SpectacleDetail from "./pages/SpectaclesDetail";
+
 
 function App() {
   const location = useLocation();
@@ -21,6 +24,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/artistes" element={<Artists />} />
         <Route path="/compte" element={<LoginPage />} />
+        <Route path="/spectacles" element={<Spectacles />} />
+        <Route path="spectacles/:id" element={<SpectacleDetail />} />
       </Routes>
 
       {!isLoginPage && <Footer />}
