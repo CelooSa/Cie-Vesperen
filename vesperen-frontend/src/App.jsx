@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 import Artists from "./pages/Artists";
 import Spectacles from "./pages/Spectacles";
 import SpectacleDetail from "./pages/SpectaclesDetail";
+import ContactPage from "./pages/ContactPage";
 
 
 function App() {
@@ -25,7 +26,8 @@ function App() {
         <Route path="/artistes" element={<Artists />} />
         <Route path="/compte" element={<LoginPage />} />
         <Route path="/spectacles" element={<Spectacles />} />
-        <Route path="spectacles/:id" element={<SpectacleDetail />} />
+        <Route path="/spectacles/:id" element={<SpectacleDetail />} />
+        <Route path="/contact" element={<ContactPage />} />
       </Routes>
 
       {!isLoginPage && <Footer />}

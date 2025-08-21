@@ -1,0 +1,119 @@
+.contact-page {
+    margin-top: 5rem;
+  min-height: 100vh;
+background: linear-gradient(135deg, #000000 0%, #0a0f29 40%,#1a103d 100%);
+  padding: 4rem 2rem;
+  font-family: 'Livvic', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .contact-container {
+    max-width: 1200px;
+    width: 100%;
+    background: rgba(198, 198, 241, 0.4);
+    backdrop-filter: blur(10px);
+    border-radius: 2rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    padding: 2rem;
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #17163b;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      text-align: center;
+      color: #252424;
+      margin-bottom: 2rem;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        label {
+          font-weight: 600;
+        }
+
+        input, select, textarea {
+          padding: 0.8rem;
+          border-radius: 0.5rem;
+          border: 1px solid #ccc;
+          font-size: 1rem;
+
+          &:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 2px rgba(79,70,229,0.2);
+          }
+        }
+
+        button {
+          padding: 0.8rem;
+          border: none;
+          border-radius: 0.5rem;
+          background-color: #211e5f;
+          color: white;
+          cursor: pointer;
+          font-weight: 600;
+          transition: 0.3s;
+
+          &:hover {
+            background-color: #100d2e;
+          }
+        }
+      }
+
+      .contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+
+        .info-block {
+          background: rgba(255,255,255,0.2);
+          padding: 1rem;
+          border-radius: 1rem;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+
+          h2 {
+            font-size: 1.2rem;
+            color: #17163b;
+            margin-bottom: 0.5rem;
+          }
+
+          p {
+            margin: 0.3rem 0;
+          }
+
+          .social-icons {
+            display: flex;
+            gap: 1rem;
+            font-size: 1.5rem;
+
+            a {
+              color: #4f46e5;
+              transition: 0.3s;
+
+              &:hover {
+                color: #4338ca;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
