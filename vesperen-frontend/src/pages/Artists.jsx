@@ -7,15 +7,18 @@ import "swiper/css/navigation";
 
 import "../styles/artists-carousel.scss";
 import ArtistsCard from "../components/ArtistsCard";
+import { image } from "framer-motion/client";
 
 const artists = [
   {
     id: 1,
     name: "Aurore Lioran",
     discipline: "Corde / Tissus",
-    bio: "Aurore explore les hauteurs avec grâce et légèreté, fusionnant danse et acrobaties aériennes.",
+    bio: `Aurore explore les hauteurs avec grâce et légèreté, fusionnant danse et acrobaties aériennes.
+    Depuis son enfance, elle explore l’harmonie entre force et légèreté, transformant chaque mouvement en poésie visuelle.`,
     description:
       "Ses mouvements dessinent des arabesques dans l'air, suspendant le temps au creux des tissus.",
+      image: "/src/images/Aurore Lioran.png"
   },
   {
     id: 2,
@@ -71,13 +74,8 @@ const Artists = () => {
         >
           {artists.map((artist) => (
             <SwiperSlide key={artist.id}>
-              <ArtistsCard
-                name={artist.name}
-                discipline={artist.discipline}
-                bio={artist.bio}
-                image={artist.image}
-              />
-            </SwiperSlide>
+              <ArtistsCard {...artist} />
+           </SwiperSlide>
           ))}
         </Swiper>
       </div>
