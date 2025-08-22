@@ -10,11 +10,16 @@
   padding-right: 2rem;
 
 
-  /* HERO */
+ 
   .hero {
+    position: relative; // ici c'est ma position nécéssaire pr inclure l'overlay
     text-align: center;
     padding: 6rem 2rem;
-    background: linear-gradient(135deg, #111111, #1a1a1a);
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    //background-attachment: fixed;
     
     h1 {
       font-family: "Just Another Hand", cursive;
@@ -23,6 +28,7 @@
       margin-bottom: 0;
       margin-top: 0;
       color: #f5f5f5;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
 
       em {
         transform: skew(-12deg);
@@ -39,12 +45,14 @@
       opacity: 0.8;
       margin-bottom: 2rem;
       color: #ccc;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     }
 
     p {
       font-size: 1.2rem;
       margin-bottom: 2rem;
       color: #ccc;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     }
 
     button {
@@ -52,19 +60,21 @@
       padding: 0.75rem 2rem;
       border-radius: 50px;
       border: 2px solid #f5f5f5;
-      background-color: transparent;
+      background-color: rgba(0, 0, 0, 0.3);
       color: #f5f5f5;
       cursor: pointer;
       transition: all 0.3s ease;
+      backdrop-filter: blur(5px); // c'est un effet de flou pr mon  bouton
 
       &:hover {
         background-color: #f5f5f5;
         color: #0a0a0a;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(245, 245, 245, 0.3);
       }
     }
   }
 
-  /* PRESENTATION */
   .presentation {
     text-align: center;
     padding: 4rem 2rem;
@@ -103,6 +113,23 @@
   .show .show-card {
     flex-direction: column;
     align-items: center;
+  }
+} */
+
+/* ou comme ça à voir : 
+
+@media (max-width: 768px) {
+  .home .hero {
+    padding: 4rem 1rem;
+    background-attachment: scroll; // Désactive le parallax sur mobile
+
+    h1 {
+      font-size: 4rem; // Taille plus adaptée pour mobile
+    }
+
+    button {
+      padding: 0.5rem 1.5rem;
+    }
   }
 } */
  

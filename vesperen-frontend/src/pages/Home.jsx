@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import heroBackground from "../images/hero-background.webp";
 
 import "../styles/home.scss";
-import SpectaclesHome from './SpectaclesHome';
+import SpectaclesHome from "./SpectaclesHome";
 
 const Home = () => {
   return (
     <div className="home">
       {/* ma partie hero*/}
-      <section className="hero">
+      <section
+        className="hero"
+        style={{
+          backgroundImage: `linear-gradient(rgba(17, 17, 17, 0.7), rgba(26, 26, 26, 0.8)), url(${heroBackground})`,
+        }}
+      >
         <div className="hero-content">
           <h1>
             Compagnie <em>Vesperen</em>
@@ -26,10 +31,7 @@ const Home = () => {
         </div>
       </section>
 
-
-        <SpectaclesHome />
-      
-    
+      <SpectaclesHome />
 
       {/* petite phrase de présentation à voir si on la garde */}
       <section className="presentation">
