@@ -1,12 +1,14 @@
 import logo from '../../assets/Logo-compagnie-Vesperen.webp';
-import { Link } from 'react-router';
-import Login from './Login';
+import { Link } from 'react-router-dom';
+
 
 
 export default function Register() {
-    const createUser = () => {
-
-    }
+    const createUser = (e) => {
+e.preventDefault();
+// logique pr crea utilisateur 
+    };
+    
     return (
         <>
 
