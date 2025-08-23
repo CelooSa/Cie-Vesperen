@@ -11,6 +11,25 @@
     color: #111827 !important;
   }
 
+  .return-button {
+ 
+    width: 100%;
+    align-self: flex-start;
+    margin-top: -2rem;
+    margin-bottom: 0.8rem;
+
+
+    a {
+      color: #6b7280;
+      text-decoration: none;
+      font-size: 0.875rem;
+
+      &:hover {
+        color: #4f46e5;
+      }
+    }
+  }
+
   // Container principal centré
   .login-container {
     min-height: 100vh;

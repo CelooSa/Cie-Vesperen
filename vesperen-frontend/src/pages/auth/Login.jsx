@@ -7,7 +7,12 @@ export default function LoginPage() {
   return (
     <div className="login-page">
       <div className="login-container">
-        
+
+{/* Ajout d'un petit return */}
+        <div className="return-button">
+          <Link to="/">← Return</Link>
+        </div>
+
         {/* Logo */}
         <div className="logo-section">
           <img src={logo} alt="Logo Vesperen" />
