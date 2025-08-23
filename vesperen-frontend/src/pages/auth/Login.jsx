@@ -1,7 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import logo from '../../assets/Logo-compagnie-Vesperen.webp';
-import '../../styles/login.scss';
+import React from "react";
+import { Link } from "react-router-dom";
+import logo from "../../assets/Logo-compagnie-Vesperen.webp";
+import "../../styles/login.scss";
 
 export default function LoginPage() {
   return (
@@ -17,6 +17,8 @@ export default function LoginPage() {
         {/* Formulaire */}
         <div className="form-container">
           <form>
+
+            {/*partie email*/}
             <div className="form-group">
               <label htmlFor="email">Email address</label>
               <input
@@ -28,30 +30,31 @@ export default function LoginPage() {
               />
             </div>
 
-            <div className="form-group">
-              <div className="password-section">
-                <div className="forgot-link">
-                  <label htmlFor="password">Password</label>
-                  <Link to="/forgot-password">Forgot password?</Link>
-                </div>
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  required
-                  autoComplete="current-password"
-                />
+
+              {/*partie password */}
+            <div className="form-group password-section">
+              <label htmlFor="password">Password</label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                required
+                autoComplete="current-password"
+              />
+              <div className="forgot-link">
+                <Link to="/forgot-password">Forgot password?</Link>
               </div>
             </div>
 
+          {/* mon bouton */}
             <button type="submit" className="submit-btn">
               Sign in
             </button>
           </form>
 
+          {/* le lien d'incription */}
           <p className="register-link">
-            Not a member?{' '}
-            <Link to="/register">Create your account</Link>
+            Not a member? <Link to="/register">Create your account</Link>
           </p>
         </div>
       </div>

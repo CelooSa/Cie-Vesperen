@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 export default function Register() {
     const createUser = (e) => {
 e.preventDefault();
-// logique pr crea utilisateur 
+// ici ma logique pr crea utilisateur 
     };
     
     return (
