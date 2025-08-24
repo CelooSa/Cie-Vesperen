@@ -21,10 +21,15 @@ const showRouter = require('./router/show.router');
 // MIDDLEWARES
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+
+const corsOptions = {
+    origin: ENV.PORT_APPLICATION_FRONT,
+    credentials: true,
+};
+app.use(cors(corsOptions));
 
 
-//URLS API PREFIX
+//URLS API 
 app.use("/api/users", userRouter);
 app.use("/api/shows", showRouter);
 

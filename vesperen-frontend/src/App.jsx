@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
+
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -11,8 +11,12 @@ import Register from "./pages/auth/Register";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import VerifyEmail from "./pages/auth/VerifyEmail";
 
-import Dashboard from "./pages/Dashboard";
-import Reservations from "./pages/Reservations";
+import DashboardLayout from "./pages/dashboard/DashboardLayout";
+import Profile from "./pages/dashboard/Profile";
+import Reservations from "./pages/dashboard/Reservations";
+import Tickets from "./pages/dashboard/Tickets";
+
+
 import Home from "./pages/Home";
 import Artists from "./pages/Artists";
 import Spectacles from "./pages/Spectacles";
@@ -48,25 +52,20 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/verify-email" element={<VerifyEmail />} />
 
-        {/*  mes pages protégées */}
+        {/*  mes pages dashboard protégé avec des sous-routes */}
         <Route
           path="/dashboard"
           element={
             <PrivateRoute>
-              <Dashboard />
+              <DashboardLayout />
             </PrivateRoute>
           }
-        />
-
-        <Route
-          path="/reservations"
-          element={
-            <PrivateRoute>
-              <Reservations />
-            </PrivateRoute>
-          }
-        />
-      </Routes>
+        >
+          <Route path="profile" element={<Profile />} />
+          <Route path="reservations" element={<Reservations />} />
+          <Route path="tickets" element={<Tickets />} />   
+      </Route>
+    </Routes>
 
       {!isAuthPage && <Footer />}
     </>
