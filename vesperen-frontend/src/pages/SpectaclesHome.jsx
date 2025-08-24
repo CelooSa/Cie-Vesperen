@@ -10,7 +10,7 @@ const spectacles = [
       "Une création poétique où les corps dansent dans l'espace, explorant la relation entre l'humain et les éléments. Une performance aérienne qui mêle cirque contemporain et théâtre physique.",
     duration: "50 minutes",
     audience: "Tout public à partir de 8 ans",
-    image: "src/images/Tissus.jpg",
+    image: "vesperen-frontend/public/Tissus.jpg",
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ const spectacles = [
       "Un voyage initiatique à travers les transformations de l'âme humaine. Les artistes incarnent différents états émotionnels par le mouvement et l'acrobatie, créant un spectacle viscéral et touchant.",
     duration: "45 minutes",
     audience: "Tout public à partir de 12 ans",
-    image: "src/images/accro_aerien.jpg",
+    image: "vesperen-frontend/public/accro_aerien.jpg",
   },
   {
     id: 3,
@@ -30,7 +30,7 @@ const spectacles = [
       "Une création solo qui explore les passages de la vie, les transitions et les métamorphoses. Un spectacle intime où chaque geste raconte une histoire personnelle universelle.",
     duration: "30 minutes",
     audience: "Tout public à partir de 6 ans",
-    image: "src/images/maison-trapeze.jpg"
+    image: "vesperen-frontend/public/maison-trapeze.jpg"
   },
 ];
 
