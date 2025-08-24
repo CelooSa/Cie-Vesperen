@@ -30,7 +30,7 @@ const spectacles = [
       "Une création solo qui explore les passages de la vie, les transitions et les métamorphoses. Un spectacle intime où chaque geste raconte une histoire personnelle universelle.",
     duration: "30 minutes",
     audience: "Tout public à partir de 6 ans",
-    image: "src/images/Equilibriste_poetique_ballon.png"
+    image: "src/images/maison-trapeze.jpg"
   },
 ];
 
@@ -38,7 +38,7 @@ const SpectaclesHome = () => {
   return (
     <section className="spectacles">
       <div className="container">
-        <h2 className="title">Nos Spectacles</h2>
+        <h2 className="section-title">Nos Spectacles</h2>
         <p className="intro">
           Découvrez notre univers artistique à travers nos créations originales, où chaque spectacle raconte une histoire unique mêlant cirque contemporain, théâtre physique et poésie du mouvement.
         </p>
@@ -48,7 +48,7 @@ const SpectaclesHome = () => {
             <div key={show.id} className="card">
               <img src={show.image} alt={show.title} className="image" />
 
-              <h3 className="title">{show.title}</h3>
+              <h3 className="card-title">{show.title}</h3>
               <p className="subtitle">{show.subtitle}</p>
               <p className="description">{show.description}</p>
               <p className="details">
