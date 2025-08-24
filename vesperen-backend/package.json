@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon server.js",
+    "start": "node server.js",
     "test": "vitest"
+  },
+   "engines": {
+    "node": "18.x"
   },
   "author": "Celoo",
   "license": "ISC",
