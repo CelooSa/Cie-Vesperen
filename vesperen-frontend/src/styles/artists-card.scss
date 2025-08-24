@@ -1,30 +1,54 @@
 .artist-card {
+  max-width: 400px;
+  width: 100%; 
   background-color: #1a1a1a;
   border-radius: 10px;
-  padding: 2rem;
+  padding: 1rem; 
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin: 0 auto; 
+  box-sizing: border-box; 
+  
+
+  // pr ma version ordi: images plus grandes
+  @media (min-width: 768px) {
+    padding: 2rem;
+  }
 
   &:hover {
-    transform: translateY(-8px);
-    box-shadow: 
-    0 0 20px rgba(135, 206, 235, 0.3), 
-    0 0 40px rgba(135, 206, 235, 0.2),
-    0 0 60px rgba(135, 206, 235, 0.1);
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.9))
+          drop-shadow(0 0 20px rgba(255, 255, 255, 0.6))
+          drop-shadow(0 0 30px rgba(255, 255, 255, 0.4));;
+    
   }
-  
 
   .artist-image {
     width: 100%;
     height: auto;
+    border-radius: 8px; 
     overflow: hidden;
-    border-radius: 10px;
-    margin-bottom: 1rem;
-
+    margin-bottom: 1rem; 
+    
     img {
       width: 100%;
-      height: 100%;
+      height: auto;
+      max-height: 300px; // ça pour limiter la hauteur sur mobile
       object-fit: cover;
+      display: block; 
+      transition: transform 0.3s ease, filter 0.3s ease;
+
+      // Partie ordi avec des images plus grandes
+      @media (min-width: 768px) {
+        max-height: 400px;
+      }
+
+      &:hover {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.9))
+          drop-shadow(0 0 20px rgba(255, 255, 255, 0.6))
+          drop-shadow(0 0 30px rgba(255, 255, 255, 0.4));
+      }
     }
   }
 
@@ -32,24 +56,60 @@
     text-align: center;
 
     .artist-name {
-      font-size: 1.5rem;
+      font-size: 1.2rem; // plus petit sur mobile
       margin-bottom: 0.5rem;
       color: #f5f5f5;
+      
+      // Desktop
+      @media (min-width: 768px) {
+        font-size: 1.5rem;
+      }
     }
 
     .artist-discipline {
       color: #ccc;
-      font-size: 0.9rem;
+      font-size: 0.8rem; // idem plus petit sur mobile
       text-transform: uppercase;
       letter-spacing: 1px;
       margin-bottom: 1rem;
+      
+      // Desktop
+      @media (min-width: 768px) {
+        font-size: 0.9rem;
+      }
     }
 
     .artist-bio {
       color: #ccc;
       line-height: 1.6;
-      font-size: 0.95rem;
-      white-space: pre-line; // prend en compte les saut de ligne comme dans la string 
+      font-size: 0.85rem; // idem plus petit sur mobile
+      white-space: pre-line;
+      
+      // Desktop
+      @media (min-width: 768px) {
+        font-size: 0.95rem;
+      }
     }
+  }
+}
+
+
+.artist-cards-container {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+  
+// partie pr mobile
+  grid-template-columns: 1fr;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  }
+  
+  // et enfin sur trois colonnes pour ma version sur ordi
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    padding: 2rem;
   }
 }

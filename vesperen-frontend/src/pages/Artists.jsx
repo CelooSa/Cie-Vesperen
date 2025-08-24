@@ -15,7 +15,8 @@ const artists = [
     name: "Aurore Lioran",
     discipline: "Corde / Tissus",
     bio: `Aurore explore les hauteurs avec grâce et légèreté, fusionnant danse et acrobaties aériennes.
-    Depuis son enfance, elle explore l’harmonie entre force et légèreté, transformant chaque mouvement en poésie visuelle.`,
+    Depuis son enfance, elle explore l’harmonie entre force et légèreté, transformant chaque mouvement en poésie visuelle.
+    Le tissus  devient un choix évident pour sa grâce et sa fluidité`,
     description:
       "Ses mouvements dessinent des arabesques dans l'air, suspendant le temps au creux des tissus.",
       image: "/src/images/Aurore Lioran.png"
@@ -23,34 +24,45 @@ const artists = [
   {
     id: 2,
     name: "Elias Faeren",
-    discipline: "Trapèze",
-    bio: "Maître du trapèze volant, Elias conjugue audace et poésie dans chaque envol.",
+    discipline: "Feu /Pyrotechnie expressive",
+    bio: `Elias ne joue pas avec le feu : il converse avec lui. Dans ses mains, les flammes deviennent danseuses, les braises se font chuchotements. 
+    Son art embrase l’espace tout en gardant une étrange douceur, comme un feu de camp au cœur d’une nuit sans lune.`,
     description:
-      "Chaque saut est un poème, chaque envol une note de musique suspendue dans l'espace.",
+    "Véritable dompteur d'étincelles, ses flammes dessinent des éclats lumineux dans l’obscurité, entre puissance incandescente et tendresse fragile ",
+    image: "src/images/Elias_Faerin.png"
   },
   {
     id: 3,
     name: "Lysandre Vey",
     discipline: "Théâtre acrobatique poétique",
-    bio: "Lysandre mélange théâtre et acrobaties dans des performances où le rêve et la réalité se confondent.",
+    bio: `Lysandre aime brouiller les frontières. Il mélange théâtre et acrobaties dans des performances où le rêve et la réalité se confondent. 
+    Depuis son enfance, il crée des histoires où le ciel et la terre se rencontrent pour captiver petits et grands. 
+    Chaque représentation est un voyage dans un monde où l’impossible devient tangible.`,
     description:
-      "Ses histoires flottent entre ciel et terre, jouant avec l'ombre et la lumière des émotions.",
+      "Ses histoires comme suspendues dans l'imaginaire, jouent avec l'ombre et la lumière des émotions.",
+      image: "src/images/Equilibriste_poetique_ballon.png"
   },
   {
     id: 4,
     name: "Noémie Thal",
-    discipline: "Voltige / Équilibre",
-    bio: "Spécialiste de l'équilibre et de la voltige, Noémie explore la fragilité et la force dans chaque geste.",
+    discipline: "Trapèze/Voltige/Équilibre",
+    bio: `Spécialiste de l'équilibre et de la voltige, Noémie, en véritable maîtresse du trapèze, défie la gravité
+    avec audace et précision. Toujours sur le fil de la chute, à travers chaque saut , on se faufile vers une sensation de vertige,
+    ou le vide devient solide , comme si le ciel devenait une route sur laquelle ses pieds peuvent se poser comme par magie `,
     description:
       "Sur le fil du monde, elle danse avec l'invisible, défiant la gravité comme une évidence.",
+      image: "src/images/Naomie Thal.png"
   },
   {
     id: 5,
     name: "Orion Delar",
     discipline: "Spectacles aériens",
-    bio: "Orion crée des spectacles aériens immersifs où le public est emporté dans un rêve collectif.",
+    bio: `Orion crée des spectacles aériens immersifs où le public est emporté dans un rêve collectif.
+    Depuis toujours fasciné par le mouvement, l'espace et son vide ainsi que son immensité silencieuse,
+    il a choisi de s'en inspirer pour trasnformer chaque performance en véritable voyage poétique`,
     description:
-      "Chaque envol raconte une histoire silencieuse, chaque chute devient une caresse du vent.",
+      "Chaque envol raconte une histoire silencieuse, chaque chute devient une caresse du vent, comme un chuchotement dans le vide.",
+      image:"src/images/Orion Delar.png"
   },
 ];
 
