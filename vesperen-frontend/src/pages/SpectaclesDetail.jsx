@@ -9,21 +9,21 @@ const spectaclesData = {
     titre: "Rêves Suspendus",
     description:
       "Voyage poétique où les corps flottent dans un univers aérien...",
-    image: "/images/reves-suspendus.jpg",
+    image: "/images/equilibre.jpg",
     infos: "Durée : 1h15 • Tout public • Création 2023",
   },
   2: {
     titre: "Éclats d’Ombres",
     description:
       "Entre théâtre et acrobatie, un récit visuel entre lumière et ombre...",
-    image: "/images/eclats-ombres.jpg",
+    image: "/images/Accrobatie.jpeg",
     infos: "Durée : 1h • Dès 10 ans • Création 2022",
   },
   3: {
     titre: "Les Étoiles Errantes",
     description:
       "Un spectacle aérien, entre voltige et équilibre, où les étoiles guident...",
-    image: "/images/etoiles-errantes.jpg",
+    image: "/images/Corde-tissus.jpg",
     infos: "Durée : 1h30 • Tout public • Création 2021",
   },
 };

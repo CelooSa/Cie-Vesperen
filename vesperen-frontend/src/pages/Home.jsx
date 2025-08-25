@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import heroBackground from "../images/hero-background.webp";
+import heroBackground from "/images/hero-background.webp";
+import { Link } from "react-router-dom";
 
 import "../styles/home.scss";
 import SpectaclesHome from "./SpectaclesHome";
@@ -27,7 +28,9 @@ const Home = () => {
             mouvement raconte une histoire, poétique et féérique, suspendue dans
             l'espace et le temps.
           </p>
+          <Link to="/artistes">  
           <button>Découvrir nos artistes</button>
+          </Link>
         </div>
       </section>
 

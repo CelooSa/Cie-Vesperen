@@ -19,7 +19,7 @@ const artists = [
     Le tissus  devient un choix évident pour sa grâce et sa fluidité`,
     description:
       "Ses mouvements dessinent des arabesques dans l'air, suspendant le temps au creux des tissus.",
-      image: "/src/images/Aurore Lioran.png"
+      image: "/images/Aurore Lioran.png"
   },
   {
     id: 2,
@@ -29,7 +29,7 @@ const artists = [
     Son art embrase l’espace tout en gardant une étrange douceur, comme un feu de camp au cœur d’une nuit sans lune.`,
     description:
     "Véritable dompteur d'étincelles, ses flammes dessinent des éclats lumineux dans l’obscurité, entre puissance incandescente et tendresse fragile ",
-    image: "src/images/Elias_Faerin.png"
+    image: "/images/Elias_Faerin.png"
   },
   {
     id: 3,
@@ -40,7 +40,7 @@ const artists = [
     Chaque représentation est un voyage dans un monde où l’impossible devient tangible.`,
     description:
       "Ses histoires comme suspendues dans l'imaginaire, jouent avec l'ombre et la lumière des émotions.",
-      image: "src/images/Equilibriste_poetique_ballon.png"
+      image: "/images/Equilibriste_poetique_ballon.png"
   },
   {
     id: 4,
@@ -51,7 +51,7 @@ const artists = [
     ou le vide devient solide , comme si le ciel devenait une route sur laquelle ses pieds peuvent se poser comme par magie `,
     description:
       "Sur le fil du monde, elle danse avec l'invisible, défiant la gravité comme une évidence.",
-      image: "src/images/Naomie Thal.png"
+      image: "/images/Naomie Thal.png"
   },
   {
     id: 5,
@@ -62,7 +62,7 @@ const artists = [
     il a choisi de s'en inspirer pour trasnformer chaque performance en véritable voyage poétique`,
     description:
       "Chaque envol raconte une histoire silencieuse, chaque chute devient une caresse du vent, comme un chuchotement dans le vide.",
-      image:"src/images/Orion Delar.png"
+      image:"/images/Orion Delar.png"
   },
 ];
 

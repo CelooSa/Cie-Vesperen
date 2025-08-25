@@ -8,19 +8,19 @@ const spectaclesData = [
     id: 1,
     titre: "Rêves Suspendus",
     description: "Un voyage poétique dans les airs, entre corde et tissus.",
-    image: "/images/reves-suspendus.jpg",
+    image: "/images/cascade.jpg",
   },
   {
     id: 2,
     titre: "Éclats d’Ombres",
     description: "Un théâtre acrobatique entre lumière et obscurité.",
-    image: "/images/eclats-ombres.jpg",
+    image: "/images/Monocycle.jpeg",
   },
   {
     id: 3,
     titre: "Les Étoiles Errantes",
     description: "Un spectacle aérien entre voltige et équilibre.",
-    image: "/images/etoiles-errantes.jpg",
+    image: "/images/roue-humaine.jpeg",
   },
 ];
 

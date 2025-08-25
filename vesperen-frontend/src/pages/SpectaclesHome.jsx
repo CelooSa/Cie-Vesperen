@@ -1,5 +1,6 @@
 import React from "react";
 import "../styles/spectacles-home.scss";
+import { Link } from "react-router-dom";
 
 const spectacles = [
   {
@@ -10,7 +11,7 @@ const spectacles = [
       "Une création poétique où les corps dansent dans l'espace, explorant la relation entre l'humain et les éléments. Une performance aérienne qui mêle cirque contemporain et théâtre physique.",
     duration: "50 minutes",
     audience: "Tout public à partir de 8 ans",
-    image: "/public/Tissus.jpg",
+    image: "/images/Tissus.jpg",
   },
   {
     id: 2,
@@ -20,7 +21,7 @@ const spectacles = [
       "Un voyage initiatique à travers les transformations de l'âme humaine. Les artistes incarnent différents états émotionnels par le mouvement et l'acrobatie, créant un spectacle viscéral et touchant.",
     duration: "45 minutes",
     audience: "Tout public à partir de 12 ans",
-    image: "/public/accro_aerien.jpg",
+    image: "/images/accro_aerien.jpg",
   },
   {
     id: 3,
@@ -30,7 +31,7 @@ const spectacles = [
       "Une création solo qui explore les passages de la vie, les transitions et les métamorphoses. Un spectacle intime où chaque geste raconte une histoire personnelle universelle.",
     duration: "30 minutes",
     audience: "Tout public à partir de 6 ans",
-    image: "/public/maison-trapeze.jpg"
+    image: "/images/maison-trapeze.jpg"
   },
 ];
 
@@ -55,7 +56,9 @@ const SpectaclesHome = () => {
                 <span>Durée :</span> {show.duration} <br />
                 <span>Public :</span> {show.audience}
               </p>
+              <Link to={`/spectacles/${show.id}`}>
               <button className="button">En savoir plus</button>
+              </Link>
             </div>
           ))}
         </div>

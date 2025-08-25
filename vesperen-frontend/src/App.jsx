@@ -1,7 +1,6 @@
 import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 
-
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import PrivateRoute from "./components/PrivateRoute";
@@ -16,7 +15,6 @@ import Profile from "./pages/dashboard/Profile";
 import Reservations from "./pages/dashboard/Reservations";
 import Tickets from "./pages/dashboard/Tickets";
 
-
 import Home from "./pages/Home";
 import Artists from "./pages/Artists";
 import Spectacles from "./pages/Spectacles";
@@ -25,13 +23,12 @@ import ContactPage from "./pages/ContactPage";
 
 function App() {
   const location = useLocation();
-  const isAuthPage = 
-    location.pathname ==="/compte" ||
-    location.pathname ==="/register" ||
-    location.pathname ==="/forgot-password" ||
-    location.pathname ==="/verify-email";
-  
-  
+  const isAuthPage =
+    location.pathname === "/compte" ||
+    location.pathname === "/register" ||
+    location.pathname === "/forgot-password" ||
+    location.pathname === "/verify-email";
+
   const isLoginPage = location.pathname === "/compte";
 
   return (
@@ -63,9 +60,9 @@ function App() {
         >
           <Route path="profile" element={<Profile />} />
           <Route path="reservations" element={<Reservations />} />
-          <Route path="tickets" element={<Tickets />} />   
-      </Route>
-    </Routes>
+          <Route path="tickets" element={<Tickets />} />
+        </Route>
+      </Routes>
 
       {!isAuthPage && <Footer />}
     </>
