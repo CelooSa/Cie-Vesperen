@@ -1,15 +1,45 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+
 import logo from "../../assets/Logo-compagnie-Vesperen.webp";
 import "../../styles/login.scss";
 
+
 export default function LoginPage() {
-  return (
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post("http://localhost:5000/api/login", {
+        email,
+        password,
+      });
+
+      const token = res.data.token;
+
+      // Pr mon stokage côté front :
+      localStorage.setItem("token", token);
+
+      // ensuite ma redirection vers le dasboard
+      navigate("/dashboard/profile");
+    }catch (err) {
+      setError("Email ou mot de passe incorrect");
+      console.log(err);
+    }
+  };
+    
+    
+      return (
     <div className="login-page">
       <div className="login-container">
 
-        
-{/* Ajout d'un petit return */}
+        {/* Ajout d'un petit return */}
         <div className="return-button">
           <Link to="/">← Return</Link>
         </div>
