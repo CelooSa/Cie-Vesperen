@@ -5,13 +5,11 @@ import axios from "axios";
 import logo from "../../assets/Logo-compagnie-Vesperen.webp";
 import "../../styles/login.scss";
 
-
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,22 +26,19 @@ export default function LoginPage() {
 
       // ensuite ma redirection vers le dasboard
       navigate("/dashboard/profile");
-    }catch (err) {
+    } catch (err) {
       setError("Email ou mot de passe incorrect");
       console.log(err);
     }
   };
-    
-    
-      return (
+
+  return (
     <div className="login-page">
       <div className="login-container">
-
         {/* Ajout d'un petit return */}
         <div className="return-button">
           <Link to="/">← Return</Link>
         </div>
-
 
         {/* Logo */}
         <div className="logo-section">
@@ -53,8 +48,7 @@ export default function LoginPage() {
 
         {/* Formulaire */}
         <div className="form-container">
-          <form>
-
+          <form onSubmit={handleSubmit}>
             {/*partie email*/}
             <div className="form-group">
               <label htmlFor="email">Email address</label>
@@ -64,11 +58,12 @@ export default function LoginPage() {
                 type="email"
                 required
                 autoComplete="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 
-
-              {/*partie password */}
+            {/*partie password */}
             <div className="form-group password-section">
               <label htmlFor="password">Password</label>
               <input
@@ -77,13 +72,16 @@ export default function LoginPage() {
                 type="password"
                 required
                 autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <div className="forgot-link">
                 <Link to="/forgot-password">Forgot password?</Link>
               </div>
             </div>
 
-          {/* mon bouton */}
+            {error && <p className="error-message">{error}</p>} {/*ajout d'un mess d'erreur au dessus du bouton à voir si on garde*/}
+            {/* mon bouton */}
             <button type="submit" className="submit-btn">
               Sign in
             </button>

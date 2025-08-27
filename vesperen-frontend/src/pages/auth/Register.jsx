@@ -1,96 +1,93 @@
-import logo from '../../assets/Logo-compagnie-Vesperen.webp';
-import { Link } from 'react-router-dom';
-
-
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
+import logo from "../../assets/Logo-compagnie-Vesperen.webp";
 
 export default function Register() {
-    const createUser = (e) => {
-e.preventDefault();
-// ici ma logique pr crea utilisateur 
-    };
-    
-    return (
-        <>
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-            <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-                <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                    <img
-                        alt="Your Company"
-                        src={logo}
-                        style={{ width: "30%", height: "30% " }}
-                        className="mx-auto"
-                    />
-                    <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-                        Create your account
-                    </h2>
-                </div>
+  const createUser = async (e) => {
+    e.preventDefault();
+    setLoading(true);
 
-                <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form action="#"  onSubmit={ createUser}   method="POST" className="space-y-6">
-                        <div>
-                            <label htmlFor="username" className="block text-sm/6 font-medium text-gray-900">
-                                Username
-                            </label>
-                            <div className="mt-2">
-                                <input
-                                    id="username"
-                                    name="username"
-                                    type="text"
-                                    required
-                                    autoComplete="username"
-                                    className="block w-full rounded-2xl bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                                />
-                            </div>
-                        </div>
+    try {
+      const res = await axios.post("http://localhost:5000/api/auth/register", {
+        username,
+        email,
+        password,
+      });
+      console.log("Utilisateur créé :", res.data);
+      navigate("/login");
+    } catch (err) {
+      setError(err.response?.data?.message || "Erreur lors de l'inscription");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-                        <div>
-                            <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900" >
-                                Email address
-                            </label>
-                            <div className="mt-2">
-                                <input
-                                    id="email"
-                                    name="email"
-                                    type="email"
-                                    required
-                                    autoComplete="email"
-                                    className="block w-full rounded-2xl bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                                />
-                            </div>
-                        </div>
+  return (
+    <div className="register-page">
+      <div className="register-container">
+        <div className="logo-section">
+          <img src={logo} alt="Compagnie Vesperen" />
+          <h2>Create your account</h2>
+        </div>
 
+        <div className="form-container">
+          <form onSubmit={createUser}>
+            <div className="form-group">
+              <label htmlFor="username">Username</label>
+              <input
+                id="username"
+                type="text"
+                required
+                autoComplete="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
 
-                        <div>
-                            <div className="flex items-center justify-between">
-                                <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
-                                    Password
-                                </label>
-                                
-                            </div>
-                            <div className="mt-2">
-                                <input
-                                    id="password"
-                                    name="password"
-                                    type="password"
-                                    required
-                                    autoComplete="current-password"
-                                    className="block w-full rounded-2xl bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                                />
-                            </div>
-                        </div>
+            <div className="form-group">
+              <label htmlFor="email">Email address</label>
+              <input
+                id="email"
+                type="email"
+                required
+                autoComplete="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
 
-                        <div>
-                            <button
-                                type="submit"
-                                className="flex w-full justify-center rounded-2xl bg-indigo-600 px-3 py-1.5 text-sm font-normal text-gray-900 shadow-md hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 font-livvic"
-                            >
-                                Sign up !
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div >
-        </>
-    );
-};
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <input
+                id="password"
+                type="password"
+                required
+                autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
 
+            <button type="submit" className="submit-btn" disabled={loading}>
+              {loading ? "Création..." : "Sign up"}
+            </button>
+          </form>
+
+          {error && <p className="error-message">{error}</p>}
+
+          <div className="login-link">
+            Already have an account? <Link to="/login">Log in</Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
