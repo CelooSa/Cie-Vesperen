@@ -13,8 +13,8 @@ connectMongoDB(ENV.MONGO_URI,ENV.DB_NAME);
 
 
 //IMPORT ROUTES
-const userRouter = require('./router/user.router');
-const showRouter = require('./router/show.router');
+const userRouter = require('./routes/user.router');
+const showRouter = require('./routes/show.router');
 
 
 
