@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import "./dashboard.scss";
 
 export default function DashboardLayout() {
@@ -8,9 +8,9 @@ export default function DashboardLayout() {
       <aside className="sidebar">
         <div className="sidebar-header">Mon Espace</div>
         <nav className="sidebar-nav">
-          <Link to="/dashboard/profile">Profil</Link>
-          <Link to="/dashboard/reservations">Mes réservations</Link>
-          <Link to="/dashboard/tickets">Réserver un billet</Link>
+          <NavLink to="/dashboard/profile">Profil</NavLink>
+          <NavLink to="/dashboard/reservations">Mes réservations</NavLink>
+          <NavLink to="/dashboard/tickets">Réserver un billet</NavLink>
         </nav>
         <div className="sidebar-footer">
           <button>Déconnexion</button>
