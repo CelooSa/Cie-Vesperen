@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 const corsOptions = {
-  origin: [ENV.PORT_APPLICATION_FRONT, "https://cie-vesperen.vercel.app"],
+  origin: ["http://localhost:5173", "https://cie-vesperen.vercel.app"],
 
   credentials: true,
 };
