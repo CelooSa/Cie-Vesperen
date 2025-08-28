@@ -33,7 +33,7 @@ const postUser = async (req, res) => {
 
 const verifyEmail = async (req, res, next) => {
   try {
-    const { token } = req.query;
+    const { token } = req.params;
     if (!token) {
       return res.status(400).json({ message: "Token manquant" });
     }
