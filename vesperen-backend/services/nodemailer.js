@@ -13,8 +13,9 @@ const transporter = nodemailer.createTransport({
 
 
 const sendEmail = async (user, verifieToken) => {
-    const verificationLink = `
-    <a href='http://localhost:3000/verify/${verifieToken}'>${verifieToken}</a>`;
+    //utilisation de l'url de prod DONC RENDER! au lieu de localhost+ port correct et texte plus convivial 
+
+    const verificationLink = `<a href='${ENV.BASE_URL}/api/users/verify/${verifieToken}'>Vérifier mon email</a>`; 
     
     await transporter.sendMail({
         from: ENV.EMAIL_USER,

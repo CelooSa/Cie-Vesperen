@@ -1,5 +1,3 @@
-
-
 const Router = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -35,16 +33,17 @@ const postUser = async (req, res) => {
 
 const verifyEmail = async (req, res, next) => {
   try {
-    const { token } = req.params;
+    const { token } = req.query;
+    if (!token) {
+      return res.status(400).json({ message: "Token manquant" });
+    }
 
     const decoded = jwt.verify(token, ENV.TOKEN);
 
     await User.findByIdAndUpdate(
       decoded.id,
       { isVerified: true },
-      {
-        new: true,
-      }
+      { new: true }
     );
 
     return res.status(200).json({ message: "Email vérifié avec succès!" });
@@ -56,9 +55,11 @@ const verifyEmail = async (req, res, next) => {
 
 const signIn = async (req, res) => {
   try {
+    // d'abord on vérif que l'user existe
     const user = await User.findOne({ email: req.body.email });
     if (!user) return res.status(404).json("Utilisateur introuvable");
 
+    //ensuite on vérifie le mdp
     const comparePassword = await bcrypt.compare(
       req.body.password,
       user.password
@@ -66,8 +67,16 @@ const signIn = async (req, res) => {
     if (!comparePassword)
       return res.status(400).json("Erreur d'identification !");
 
+    // ici je vérif d'abord si l'user est vérifié et ENSUITE ==>
+    if (!user.isVerified) {
+      return res.status(403).json({
+        message: `Veuillez vérifier votre email afin d'accéder à votre compte.`,
+      });
+    }
+    // ==>Je génere le TOKEN (pas avant!)
     const token = jwt.sign({ id: user._id }, ENV.TOKEN, { expiresIn: "24h" });
 
+    // ensuite on prepare la réponse et on met le cookie
     const { password, ...others } = user._doc;
     res.cookie("access_token", token, {
       httpOnly: true,
@@ -75,13 +84,12 @@ const signIn = async (req, res) => {
       secure: false,
       sameSite: "strict",
     });
-    res.status(200).json(others);
-
-    if (!user.isVerified) {
-      return res.status(403).json({
-        message: `Veuillez vérifier votre email afin d'accéder à votre compte.`,
-      });
-    }
+    //Et SEULEMENT LA on ENVOIE la réponse finale
+    res.status(200).json({
+      message: "Connexion réussie",
+      token,
+      user: others,
+    });
   } catch (error) {
     console.log("Error :", error.message);
     res.status(500).json(error.message);

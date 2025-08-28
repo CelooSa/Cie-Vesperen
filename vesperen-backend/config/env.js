@@ -14,6 +14,8 @@ const ENV = {
 
     EMAIL_USER:process.env.EMAIL_USER,
     EMAIL_PASS:process.env.EMAIL_PASS,
+
+    BASE_URL: process.env.BASE_URL,
 }
 
 module.exports = ENV;
