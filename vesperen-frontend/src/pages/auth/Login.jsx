@@ -14,7 +14,7 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8000/api/users/signIn", {
+      const res = await axios.post("https://cir-vesperen.onrender.com/api/users/signIn", {
         email,
         password,
       });
