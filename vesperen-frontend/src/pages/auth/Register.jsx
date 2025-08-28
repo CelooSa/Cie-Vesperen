@@ -1,54 +1,52 @@
-import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import logo from "../../assets/Logo-compagnie-Vesperen.webp";
+import "../../styles/register.scss";
 
 export default function Register() {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
 
-  const createUser = async (e) => {
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-
-    try {
-      const res = await axios.post("http://localhost:5000/api/auth/register", {
-        username,
-        email,
-        password,
-      });
-      console.log("Utilisateur créé :", res.data);
-      navigate("/login");
-    } catch (err) {
-      setError(err.response?.data?.message || "Erreur lors de l'inscription");
-    } finally {
-      setLoading(false);
-    }
+    console.log("Register data:", formData);
+    // 👉 ici tu mettras ton axios plus tard
   };
 
   return (
     <div className="register-page">
       <div className="register-container">
-        <div className="logo-section">
-          <img src={logo} alt="Compagnie Vesperen" />
-          <h2>Create your account</h2>
+
+        {/* Bouton retour */}
+        <div className="return-button">
+          <Link to="/compte">← Return</Link>
         </div>
 
+        {/* Logo */}
+        <div className="logo-section">
+          <img src={logo} alt="Logo Vesperen" />
+          <h2>Create an account</h2>
+        </div>
+
+        {/* Formulaire */}
         <div className="form-container">
-          <form onSubmit={createUser}>
+          <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="username">Username</label>
               <input
                 id="username"
+                name="username"
                 type="text"
+                value={formData.username}
+                onChange={handleChange}
                 required
-                autoComplete="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
               />
             </div>
 
@@ -56,11 +54,11 @@ export default function Register() {
               <label htmlFor="email">Email address</label>
               <input
                 id="email"
+                name="email"
                 type="email"
+                value={formData.email}
+                onChange={handleChange}
                 required
-                autoComplete="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 
@@ -68,24 +66,18 @@ export default function Register() {
               <label htmlFor="password">Password</label>
               <input
                 id="password"
+                name="password"
                 type="password"
+                value={formData.password}
+                onChange={handleChange}
                 required
-                autoComplete="current-password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
-            <button type="submit" className="submit-btn" disabled={loading}>
-              {loading ? "Création..." : "Sign up"}
+            <button type="submit" className="submit-btn">
+              → Register
             </button>
           </form>
-
-          {error && <p className="error-message">{error}</p>}
-
-          <div className="login-link">
-            Already have an account? <Link to="/login">Log in</Link>
-          </div>
         </div>
       </div>
     </div>

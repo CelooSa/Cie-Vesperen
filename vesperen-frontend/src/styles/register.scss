@@ -5,8 +5,27 @@
   color: #111827;
   min-height: 100vh;
   font-family: "Livvic", sans-serif;
+  position: relative;
 
-  
+  .return-button {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    z-index: 10;
+
+    a {
+      color: #6b7280;
+      text-decoration: none;
+      font-size: 0.875rem;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+
+      &:hover {
+        color: #4f46e5;
+      }
+    }
+  }
 
   .register-container {
     min-height: 100vh;
@@ -18,6 +37,7 @@
   }
 
   .logo-section {
+    margin-bottom: 0;
     text-align: center;
 
     img {
@@ -27,7 +47,7 @@
     }
 
     h2 {
-      margin-top: 0.5rem;
+      margin-top: 0;
       font-size: 2.5rem;
       font-weight: 700;
       color: #111827;
@@ -41,24 +61,27 @@
 
     form {
       .form-group {
-        margin-bottom: 1rem;
+        margin-bottom: 1.3rem;
 
         label {
           display: block;
           font-size: 0.9rem;
           font-weight: 500;
           color: #111827;
-          margin-bottom: 0.3rem;
+          margin-bottom: 0.2rem;
           text-align: center;
         }
 
         input {
+          margin-top: 0.5rem;
+          display: block;
           width: 100%;
-          padding: 0.5rem 0.75rem;
           border-radius: 1rem;
           border: 1px solid #d1d5db;
-          font-size: 0.875rem;
+          background-color: white;
+          padding: 0.5rem 0.75rem;
           color: #111827;
+          font-size: 0.875rem;
 
           &:focus {
             outline: none;
@@ -70,10 +93,9 @@
 
       .submit-btn {
         display: block;
-        width: 180px;
         margin: 1.5rem auto 0;
-        padding: 0.6rem 1.5rem;
         border-radius: 2rem;
+        padding: 0.7rem 2rem;
         background-color: #3b82f6;
         color: white;
         font-weight: 500;
@@ -84,44 +106,18 @@
           background-color: #2563eb;
         }
 
-        &:disabled {
-          opacity: 0.6;
-          cursor: not-allowed;
-        }
-
         &:focus {
           outline: none;
-          box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.5);
+          box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
         }
       }
     }
+  }
 
-    .error-message {
-      margin-top: 1rem;
-      text-align: center;
-      font-size: 0.85rem;
-      color: #dc2626;
-      background-color: #fee2e2;
-      padding: 0.4rem 0.8rem;
-      border-radius: 0.5rem;
-      border: 1px solid #fca5a5;
-    }
-
-    .login-link {
-      margin-top: 1.2rem;
-      text-align: center;
-      font-size: 0.875rem;
-      color: #6b7280;
-
-      a {
-        font-weight: 500;
-        color: #3b82f6;
-        text-decoration: none;
-
-        &:hover {
-          color: #2563eb;
-        }
-      }
+  @media (max-width: 640px) {
+    .return-button {
+      top: 1rem;
+      left: 1rem;
     }
   }
 }
