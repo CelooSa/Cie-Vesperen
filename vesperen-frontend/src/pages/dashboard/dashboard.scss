@@ -4,6 +4,7 @@
   font-family: "Livvic", sans-serif;
   color: #fff;
   background-color: #0b0b1a;
+  margin-top: 80px;
 
   .sidebar {
     width: 250px;
@@ -80,6 +81,18 @@
 
     p {
       color: #cbd5e1;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-layout {
+    flex-direction: column;
+    margin-top: 60px; 
+    
+    .sidebar {
+      width: 100%;
+      padding: 1rem;
     }
   }
 }
