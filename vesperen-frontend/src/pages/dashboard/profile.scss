@@ -3,7 +3,7 @@
   margin: 0 auto;
   padding: 2rem 1rem;
 
-  // En-tête profil
+  
   .profile-header {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 15px;
@@ -229,7 +229,7 @@
           }
         }
 
-        // Préférences
+        // les préférences avec ckeckboxes
         .preferences-grid {
           display: flex;
           flex-direction: column;
@@ -313,7 +313,7 @@
     }
   }
 
-  // Responsive design
+  
   @media (max-width: 768px) {
     padding: 1rem 0.5rem;
 

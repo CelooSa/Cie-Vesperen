@@ -11,13 +11,15 @@ const postUser = async (req, res) => {
   try {
     const passwordHashed = await bcrypt.hash(req.body.password, 10);
     const new_user = await User.create({
-      ...req.body,
+      name: req.body.name,
+      email: req.body.email,
       password: passwordHashed,
+      role: "user", // ici on a corrigé pr mettre TOUJOURS user par défaut
       isVerified: false,
     });
 
     const verificationToken = jwt.sign({ id: new_user._id }, ENV.TOKEN, {
-      expiresIn: "30m",
+      expiresIn: "5m",
     });
     await sendEmail(req.body, verificationToken);
 
@@ -97,7 +99,7 @@ const signIn = async (req, res) => {
 };
 
 const getAllUsers = async (req, res) => {
-  try {
+    try {
     const all_users = await User.find();
     res.status(200).json(all_users);
   } catch (error) {
@@ -137,7 +139,7 @@ const updateUser = async (req, res, next) => {
 
     const userUpdated = await User.findByIdAndUpdate(
       req.params.id,
-      { $set: req.body },
+      { $set: allowedUpdates }, // j'ai enlevé el rôle pr preservation ds crea postman
       { new: true }
     );
     res.status(200).json({

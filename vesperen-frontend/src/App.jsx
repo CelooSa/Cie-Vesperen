@@ -15,6 +15,11 @@ import Profile from "./pages/dashboard/Profile";
 import Reservations from "./pages/dashboard/Reservations";
 import Tickets from "./pages/dashboard/Tickets";
 
+import AdminDashboardLayout from "./pages/dashboard-admin/AdminDashboardLayout";
+import AdminReservations from "./pages/dashboard-admin/AdminReservations";
+import AdminSpectacles from "./pages/dashboard-admin/AdminSpectacles";
+import AdminArtists from "./pages/dashboard-admin/AdminArtists";
+
 import Home from "./pages/Home";
 import Artists from "./pages/Artists";
 import Spectacles from "./pages/Spectacles";
@@ -62,6 +67,20 @@ function App() {
           <Route path="reservations" element={<Reservations />} />
           <Route path="tickets" element={<Tickets />} />
         </Route>
+
+
+        {/*Mon dashboard réservé uniqmt à l'ADMIN */}
+        <Route path="/admin" element={
+          <PrivateRoute adminOnly={true}>
+            <AdminDashboardLayout />
+          </PrivateRoute>
+        }
+        >
+          <Route path="spectacles" element={<AdminSpectacles />} />
+          <Route path="artists" element={<AdminArtists />} />
+          <Route path="reservations" element={<AdminReservations />} />
+        </Route>
+
       </Routes>
 
       {!isAuthPage && <Footer />}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './tickets.scss';
 
 const Tickets = () => {
-  // États pour gérer les données
+  // États pour gérer les données des tickets 
   const [shows, setShows] = useState([]);
   const [selectedShow, setSelectedShow] = useState(null);
   const [selectedDate, setSelectedDate] = useState('');
@@ -17,12 +17,12 @@ const Tickets = () => {
 
   // Fonction pour charger les spectacles
   const loadShows = () => {
-    // Pour l'instant, données fictives. Plus tard vous remplacerez par votre API
+    // Pour l'instant, données bidons ==>  remplacer ensuite  par mon api
     const demoShows = [
       {
         id: 1,
-        title: 'Le Malade Imaginaire',
-        description: 'Comédie de Molière',
+        title: 'TOTO',
+        description: 'Comédie',
         dates: ['2025-09-15', '2025-09-16', '2025-09-22'],
         availableSeats: 150,
         price: 25
@@ -30,7 +30,7 @@ const Tickets = () => {
       {
         id: 2,
         title: 'Hamlet',
-        description: 'Tragédie de Shakespeare',
+        description: 'Tragédie',
         dates: ['2025-10-01', '2025-10-02', '2025-10-08'],
         availableSeats: 200,
         price: 30
@@ -38,7 +38,7 @@ const Tickets = () => {
       {
         id: 3,
         title: 'La Tempête',
-        description: 'Drame de Shakespeare',
+        description: ' Shakespeare',
         dates: ['2025-10-15', '2025-10-16'],
         availableSeats: 180,
         price: 28
@@ -83,15 +83,15 @@ const Tickets = () => {
     setMessage({ type: '', text: '' });
 
     try {
-      // Simuler une réservation (remplacez par votre API)
-      await new Promise(resolve => setTimeout(resolve, 1500)); // Simule l'attente
+      // Simuler une réservation ==> à remplacez par mon API
+      await new Promise(resolve => setTimeout(resolve, 1500)); 
 
       // Créer la réservation
       const newReservation = {
         id: Date.now(), // ID temporaire
         showTitle: selectedShow.title,
         showDate: selectedDate,
-        showTime: '20:00', // Heure par défaut
+        showTime: '20:00', // j'ai mis 20h par défaut
         quantity: ticketQuantity,
         totalPrice: calculateTotal(),
         status: 'confirmed',
@@ -104,7 +104,7 @@ const Tickets = () => {
       existingReservations.push(newReservation);
       localStorage.setItem('userReservations', JSON.stringify(existingReservations));
 
-      // Message de succès
+      
       setMessage({ 
         type: 'success', 
         text: `Réservation confirmée ! Référence: ${newReservation.bookingReference}` 

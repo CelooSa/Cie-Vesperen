@@ -17,19 +17,18 @@ export default function Register() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Register data:", formData);
-    // 👉 ici tu mettras ton axios plus tard
+ 
   };
 
   return (
     <div className="register-page">
       <div className="register-container">
 
-        {/* Bouton retour */}
+        
         <div className="return-button">
           <Link to="/compte">← Return</Link>
         </div>
 
-        {/* Logo */}
         <div className="logo-section">
           <img src={logo} alt="Logo Vesperen" />
           <h2>Create an account</h2>

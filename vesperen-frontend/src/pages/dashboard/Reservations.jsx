@@ -79,7 +79,7 @@ Référence: ${reservation.bookingReference}
 Total payé: ${reservation.totalPrice}€
 
 Merci pour votre réservation !
-Compagnie Vesperen
+La Cie Vesperen
     `;
 
     const element = document.createElement('a');
@@ -208,7 +208,7 @@ Compagnie Vesperen
                 </div>
               </div>
 
-              {/* Actions */}
+              {/* Actions pr reservations et possibilité de download le billet*/}
               <div className="reservation-actions">
                 {reservation.status === 'confirmed' && (
                   <button 

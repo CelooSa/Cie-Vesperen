@@ -14,18 +14,29 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("https://cie-vesperen.onrender.com/api/users/signIn", {
-        email,
-        password,
-      });
+      const res = await axios.post(
+        "https://cie-vesperen.onrender.com/api/users/signIn",
+        {
+          email,
+          password,
+        }
+      );
 
-      const token = res.data.token;
+      const { token, isAdmin, ...rest } = res.data; // ici j'ai changé pr récup le token ET les infos user
+      const userData = { isAdmin, ...rest }; // et ça c'est pour le contenu mais PAS le token plus sécure et pratique
 
       // Pr mon stokage côté front :
       localStorage.setItem("token", token);
 
-      // ensuite ma redirection vers le dasboard
-      navigate("/dashboard/profile");
+      localStorage.setItem("user", JSON.stringify(userData)); // et ici pr stocker les infos user  Y COMPRIS son rôle
+
+      // ensuite ma redirection vers le dasboard SELON LE ROLE
+      if (userData.isAdmin) {
+        navigate("/admin/spectacles");
+      }else {
+        navigate("/dashboard/profile");
+      }
+
     } catch (err) {
       setError("Email ou mot de passe incorrect");
       console.log(err);
@@ -40,13 +51,13 @@ export default function LoginPage() {
           <Link to="/">← Return</Link>
         </div>
 
-        {/* Logo */}
+       
         <div className="logo-section">
           <img src={logo} alt="Logo Vesperen" />
           <h2>Sign in to your account</h2>
         </div>
 
-        {/* Formulaire */}
+        {/* Ma partie pr le formulaire */}
         <div className="form-container">
           <form onSubmit={handleSubmit}>
             {/*partie email*/}
@@ -62,7 +73,6 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-
             {/*partie password */}
             <div className="form-group password-section">
               <label htmlFor="password">Password</label>
@@ -79,15 +89,15 @@ export default function LoginPage() {
                 <Link to="/forgot-password">Forgot password?</Link>
               </div>
             </div>
-
-            {error && <p className="error-message">{error}</p>} {/*ajout d'un mess d'erreur au dessus du bouton à voir si on garde*/}
+            {error && <p className="error-message">{error}</p>}{" "}
+            {/*ajout d'un mess d'erreur au dessus du bouton à voir si on garde*/}
             {/* mon bouton */}
             <button type="submit" className="submit-btn">
               Sign in
             </button>
           </form>
 
-          {/* le lien d'incription */}
+          {/* et mon  lien d'incription */}
           <p className="register-link">
             Not a member? <Link to="/register">Create your account</Link>
           </p>

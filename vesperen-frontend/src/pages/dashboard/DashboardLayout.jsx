@@ -7,10 +7,10 @@ export default function DashboardLayout({ user }) {
   const isAdmin = user?.role === 'admin';
 
   const handleLogout = () => {
-    // Logique de déconnexion
+    // ici pour ma logique de déconnexion
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    navigate('/login');
+    navigate('/compte');
   };
 
   // ma partie nav pour l'user 
