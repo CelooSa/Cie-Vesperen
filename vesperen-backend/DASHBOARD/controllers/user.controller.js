@@ -53,7 +53,13 @@ exports.signIn = async (req, res) => {
       .json({
         message: "Connexion réussie",
         token, // ici on a rajoute le token pr qu'il soit directment renvoyé
-        user: { username: user.username, email: user.email, role: user.role },
+        user: {
+          username: user.username,
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          role: user.role,
+        },
       });
   } catch (err) {
     res.status(500).json({ message: err.message });

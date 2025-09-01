@@ -37,7 +37,7 @@ export default function DashboardLayout({ user }) {
         <div className="sidebar-header">
           <h2>{isAdmin ? "Admin Panel" : "Mon Espace"}</h2>
           <div className="user-info">
-            <p>Bonjour, {user?.firstName || user?.name}</p>
+            <p>Bonjour, {user?.firstName || user?.name || 'Utilisateur'}</p>
             <span className={`role-badge ${isAdmin ? 'admin' : 'user'}`}>
               {isAdmin ? 'Administrateur' : 'Utilisateur'}
             </span>
