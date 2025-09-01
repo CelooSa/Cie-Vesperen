@@ -14,6 +14,7 @@ connectMongoDB(ENV.MONGO_URI, ENV.DB_NAME);
 const userRouter = require("./routes/user.router");
 const adminRouter = require("./DASHBOARD/DashboardRoutes/admin.router");
 const showRouter = require("./routes/show.router");
+const contactRouter = require("./routes/contact.router");
 
 // MIDDLEWARES
 app.use(express.json());
@@ -30,6 +31,7 @@ app.use(cors(corsOptions));
 app.use("/api/users", userRouter);
 app.use("/api/admin", adminRouter);
 app.use("/api/shows", showRouter);
+app.use("/api/contact", contactRouter);
 
 //MIDDLEWARE DE GESTION D'ERREURS
 

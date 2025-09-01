@@ -1,32 +1,54 @@
 .contact-page {
-    margin-top: 5rem;
+  margin-top: 5rem;
   min-height: 100vh;
-background: linear-gradient(135deg, #000000 0%, #0a0f29 40%,#1a103d 100%);
+  background: linear-gradient(135deg, #0b0c1f 0%, #1b1040 50%, #2c1a55 100%);
   padding: 4rem 2rem;
   font-family: 'Livvic', sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.05), transparent 60%);
+    animation: drift 20s linear infinite;
+    z-index: 0;
+  }
+
+  @keyframes drift {
+    0% { transform: rotate(0deg) translate(0,0); }
+    100% { transform: rotate(360deg) translate(0,0); }
+  }
 
   .contact-container {
+    position: relative;
+    z-index: 1;
     max-width: 1200px;
     width: 100%;
-    background: rgba(198, 198, 241, 0.4);
-    backdrop-filter: blur(10px);
+    background: rgba(220, 220, 255, 0.15);
+    backdrop-filter: blur(15px);
     border-radius: 2rem;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    padding: 2rem;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    padding: 3rem 2rem;
 
     h1 {
       text-align: center;
-      font-size: 2.5rem;
-      color: #17163b;
+      font-size: 2.8rem;
+      color: #f0f0ff;
       margin-bottom: 1rem;
+      text-shadow: 0 2px 10px rgba(79,70,229,0.4);
     }
 
     p {
       text-align: center;
-      color: #252424;
+      color: #e0e0f0;
       margin-bottom: 2rem;
     }
 
@@ -46,33 +68,49 @@ background: linear-gradient(135deg, #000000 0%, #0a0f29 40%,#1a103d 100%);
 
         label {
           font-weight: 600;
+          color: #f0f0ff;
         }
 
         input, select, textarea {
           padding: 0.8rem;
-          border-radius: 0.5rem;
-          border: 1px solid #ccc;
+          border-radius: 0.8rem;
+          border: 1px solid rgba(255,255,255,0.3);
           font-size: 1rem;
+          background: rgba(255,255,255,0.05);
+          color: #f8f8ff;
+          transition: 0.3s;
 
           &:focus {
             outline: none;
-            border-color: #4f46e5;
-            box-shadow: 0 0 0 2px rgba(79,70,229,0.2);
+            border-color: #7c5cff;
+            box-shadow: 0 0 8px rgba(124,92,255,0.5);
+            background: rgba(255,255,255,0.1);
+          }
+
+          &::placeholder {
+            color: rgba(248,248,255,0.6);
           }
         }
 
+        select, otpion {
+          background-color: rgba(255, 255, 255, 0.1);
+          color:#17163b
+        }
+
         button {
-          padding: 0.8rem;
+          padding: 0.9rem;
           border: none;
-          border-radius: 0.5rem;
-          background-color: #211e5f;
-          color: white;
+          border-radius: 1rem;
+          background: linear-gradient(135deg, #7c5cff, #4f46e5);
+          color: #fff;
           cursor: pointer;
           font-weight: 600;
           transition: 0.3s;
+          box-shadow: 0 4px 15px rgba(79,70,229,0.3);
 
           &:hover {
-            background-color: #100d2e;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79,70,229,0.5);
           }
         }
       }
@@ -83,32 +121,33 @@ background: linear-gradient(135deg, #000000 0%, #0a0f29 40%,#1a103d 100%);
         gap: 1.5rem;
 
         .info-block {
-          background: rgba(255,255,255,0.2);
-          padding: 1rem;
-          border-radius: 1rem;
-          box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+          background: rgba(255,255,255,0.05);
+          padding: 1.2rem;
+          border-radius: 1.5rem;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 
           h2 {
-            font-size: 1.2rem;
-            color: #17163b;
+            font-size: 1.3rem;
+            color: #e0e0ff;
             margin-bottom: 0.5rem;
           }
 
           p {
             margin: 0.3rem 0;
+            color: #f0f0ff;
           }
 
           .social-icons {
             display: flex;
             gap: 1rem;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
 
             a {
-              color: #4f46e5;
+              color: #7c5cff;
               transition: 0.3s;
-
               &:hover {
-                color: #4338ca;
+                color: #4f46e5;
+                transform: scale(1.1);
               }
             }
           }

@@ -5,20 +5,28 @@ import { SlSocialInstagram, SlSocialYoutube } from "react-icons/sl";
 import "../styles/contact-page.scss";
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
+  const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    try {
+      const res = await fetch("https://cie-vesperen.onrender.com/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (res.ok) {
+        setSubmitStatus("success");
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        setSubmitStatus("error");
+      }
+    } catch {
+      setSubmitStatus("error");
+    }
   };
 
   return (
@@ -32,22 +40,33 @@ export default function ContactPage() {
 
         <div className="contact-grid">
           <form onSubmit={handleSubmit} className="contact-form">
+            {submitStatus === "success" && (
+              <div className="alert alert-success">
+                ✅ Votre message a été envoyé avec succès !
+              </div>
+            )}
+            {submitStatus === "error" && (
+              <div className="alert alert-error">
+                ❌ Une erreur est survenue, veuillez réessayer.
+              </div>
+            )}
+
             <label>Nom complet *</label>
-            <input type="text" name="name" value={formData.name} onChange={handleChange} />
+            <input type="text" name="name" value={formData.name} onChange={handleChange} required />
 
             <label>Email *</label>
-            <input type="email" name="email" value={formData.email} onChange={handleChange} />
+            <input type="email" name="email" value={formData.email} onChange={handleChange} required />
 
             <label>Sujet *</label>
-            <select name="subject" value={formData.subject} onChange={handleChange}>
-              <option>Choisissez un sujet</option>
-              <option>Organisation de spectacle</option>
-              <option>Découverte & ateliers</option>
-              <option>Autre demande</option>
+            <select name="subject" value={formData.subject} onChange={handleChange} required>
+              <option value="">Choisissez un sujet</option>
+              <option value="Organisation de spectacle">Organisation de spectacle</option>
+              <option value="Découverte & ateliers">Découverte & ateliers</option>
+              <option value="Autre demande">Autre demande</option>
             </select>
 
             <label>Message *</label>
-            <textarea name="message" rows="5" value={formData.message} onChange={handleChange} />
+            <textarea name="message" rows="5" value={formData.message} onChange={handleChange} required />
 
             <button type="submit">Envoyer le message</button>
           </form>

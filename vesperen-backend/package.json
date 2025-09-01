@@ -8,7 +8,7 @@
     "start": "node server.js",
     "test": "vitest"
   },
-   "engines": {
+  "engines": {
     "node": "18.x"
   },
   "author": "Celoo",
@@ -23,7 +23,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.15.0",
     "mongoose": "^8.13.1",
-    "nodemailer": "^7.0.3",
+    "nodemailer": "^7.0.6",
     "supertest": "^7.1.1"
   },
   "devDependencies": {
