@@ -2,78 +2,65 @@ import React, { useState, useEffect } from 'react';
 import './tickets.scss';
 
 const Tickets = () => {
-  // États pour gérer les données des tickets 
   const [shows, setShows] = useState([]);
   const [selectedShow, setSelectedShow] = useState(null);
   const [selectedDate, setSelectedDate] = useState('');
   const [ticketQuantity, setTicketQuantity] = useState(1);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState({ type: '', text: '' });
 
-  // Charger les spectacles au début
+  const token = localStorage.getItem('token');
+
   useEffect(() => {
     loadShows();
   }, []);
 
-  // Fonction pour charger les spectacles
-  const loadShows = () => {
-    // Pour l'instant, données bidons ==>  remplacer ensuite  par mon api
-    const demoShows = [
-      {
-        id: 1,
-        title: 'TOTO',
-        description: 'Comédie',
-        dates: ['2025-09-15', '2025-09-16', '2025-09-22'],
-        availableSeats: 150,
-        price: 25
-      },
-      {
-        id: 2,
-        title: 'Hamlet',
-        description: 'Tragédie',
-        dates: ['2025-10-01', '2025-10-02', '2025-10-08'],
-        availableSeats: 200,
-        price: 30
-      },
-      {
-        id: 3,
-        title: 'La Tempête',
-        description: ' Shakespeare',
-        dates: ['2025-10-15', '2025-10-16'],
-        availableSeats: 180,
-        price: 28
-      }
-    ];
-    
-    setShows(demoShows);
+  const loadShows = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(
+        'https://cie-vesperen.onrender.com/api/shows/allShows',
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token && { Authorization: `Bearer ${token}` }),
+          },
+        }
+      );
+
+      if (!response.ok) throw new Error(`Erreur HTTP: ${response.status}`);
+
+      const allShows = await response.json();
+      setShows(Array.isArray(allShows) ? allShows : []);
+    } catch (error) {
+      console.error('Erreur chargement spectacles:', error);
+      setShows([]);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // Sélectionner un spectacle
   const handleShowSelect = (show) => {
     setSelectedShow(show);
-    setSelectedDate(''); // Reset la date quand on change de spectacle
+    setSelectedDate('');
     setMessage({ type: '', text: '' });
   };
 
-  // Calculer le prix total
   const calculateTotal = () => {
     if (!selectedShow) return 0;
     return selectedShow.price * ticketQuantity;
   };
 
-  // Fonction pour réserver
   const handleReservation = async () => {
-    // Vérifications
     if (!selectedShow) {
       setMessage({ type: 'error', text: 'Veuillez choisir un spectacle' });
       return;
     }
-    
     if (!selectedDate) {
       setMessage({ type: 'error', text: 'Veuillez choisir une date' });
       return;
     }
-
     if (ticketQuantity < 1 || ticketQuantity > 8) {
       setMessage({ type: 'error', text: 'Nombre de billets invalide (1-8)' });
       return;
@@ -83,40 +70,39 @@ const Tickets = () => {
     setMessage({ type: '', text: '' });
 
     try {
-      // Simuler une réservation ==> à remplacez par mon API
-      await new Promise(resolve => setTimeout(resolve, 1500)); 
+      await new Promise((resolve) => setTimeout(resolve, 1500));
 
-      // Créer la réservation
       const newReservation = {
-        id: Date.now(), // ID temporaire
+        id: Date.now(),
         showTitle: selectedShow.title,
         showDate: selectedDate,
-        showTime: '20:00', // j'ai mis 20h par défaut
+        showTime: '20:00',
         quantity: ticketQuantity,
         totalPrice: calculateTotal(),
         status: 'confirmed',
         bookingDate: new Date().toISOString(),
-        bookingReference: `CIE${Date.now().toString().slice(-6)}`
+        bookingReference: `CIE${Date.now().toString().slice(-6)}`,
       };
 
-      // Sauvegarder dans localStorage (temporaire)
-      const existingReservations = JSON.parse(localStorage.getItem('userReservations') || '[]');
+      const existingReservations = JSON.parse(
+        localStorage.getItem('userReservations') || '[]'
+      );
       existingReservations.push(newReservation);
-      localStorage.setItem('userReservations', JSON.stringify(existingReservations));
+      localStorage.setItem(
+        'userReservations',
+        JSON.stringify(existingReservations)
+      );
 
-      
-      setMessage({ 
-        type: 'success', 
-        text: `Réservation confirmée ! Référence: ${newReservation.bookingReference}` 
+      setMessage({
+        type: 'success',
+        text: `Réservation confirmée ! Référence: ${newReservation.bookingReference}`,
       });
 
-      // Reset du formulaire
       setSelectedShow(null);
       setSelectedDate('');
       setTicketQuantity(1);
-
     } catch (error) {
-      console.error('Erreur:', error);
+      console.error('Erreur réservation:', error);
       setMessage({ type: 'error', text: 'Erreur lors de la réservation' });
     } finally {
       setLoading(false);
@@ -125,22 +111,16 @@ const Tickets = () => {
 
   return (
     <div className="tickets-container">
-      {/* Message de feedback */}
-      {message.text && (
-        <div className={`message ${message.type}`}>
-          {message.text}
-        </div>
-      )}
+      {message.text && <div className={`message ${message.type}`}>{message.text}</div>}
 
       <div className="tickets-content">
-        {/* Section 1: Choisir un spectacle */}
         <div className="section">
           <h2>🎭 Choisissez votre spectacle</h2>
-          
+          {loading && <p>Chargement des spectacles...</p>}
           <div className="shows-grid">
-            {shows.map(show => (
-              <div 
-                key={show.id}
+            {shows.map((show) => (
+              <div
+                key={show._id || show.id}
                 className={`show-card ${selectedShow?.id === show.id ? 'selected' : ''}`}
                 onClick={() => handleShowSelect(show)}
               >
@@ -148,10 +128,10 @@ const Tickets = () => {
                   <h3>{show.title}</h3>
                   <div className="show-price">{show.price}€</div>
                 </div>
-                <p className="show-description">{show.description}</p>
+                <p className="show-description">{show.show_description || show.description}</p>
                 <div className="show-info">
                   <span className="seats-available">
-                    📍 {show.availableSeats} places disponibles
+                    📍 {show.availableSeats ?? 'N/A'} places disponibles
                   </span>
                 </div>
               </div>
@@ -159,11 +139,9 @@ const Tickets = () => {
           </div>
         </div>
 
-        {/* Section 2: Détails de réservation (apparaît quand spectacle sélectionné) */}
         {selectedShow && (
           <div className="section">
             <h2>📅 Détails de votre réservation</h2>
-            
             <div className="booking-form">
               <div className="selected-show-info">
                 <h3>Spectacle sélectionné: {selectedShow.title}</h3>
@@ -173,21 +151,21 @@ const Tickets = () => {
               <div className="form-row">
                 <div className="form-group">
                   <label>Date du spectacle</label>
-                  <select 
+                  <select
                     value={selectedDate}
                     onChange={(e) => setSelectedDate(e.target.value)}
                   >
                     <option value="">-- Choisir une date --</option>
-                    {selectedShow.dates.map(date => (
-                      <option key={date} value={date}>
-                        {new Date(date).toLocaleDateString('fr-FR', {
+                    {selectedShow.date_time && (
+                      <option value={selectedShow.date_time}>
+                        {new Date(selectedShow.date_time).toLocaleDateString('fr-FR', {
                           weekday: 'long',
                           day: 'numeric',
                           month: 'long',
-                          year: 'numeric'
+                          year: 'numeric',
                         })}
                       </option>
-                    ))}
+                    )}
                   </select>
                 </div>
 
@@ -212,12 +190,7 @@ const Tickets = () => {
                   </div>
                   <div className="summary-line">
                     <span>Date:</span>
-                    <span>
-                      {selectedDate ? 
-                        new Date(selectedDate).toLocaleDateString('fr-FR') : 
-                        'Non sélectionnée'
-                      }
-                    </span>
+                    <span>{selectedDate ? new Date(selectedDate).toLocaleDateString('fr-FR') : 'Non sélectionnée'}</span>
                   </div>
                   <div className="summary-line">
                     <span>Billets:</span>
@@ -228,8 +201,7 @@ const Tickets = () => {
                     <span>{calculateTotal()}€</span>
                   </div>
                 </div>
-
-                <button 
+                <button
                   onClick={handleReservation}
                   disabled={loading || !selectedDate}
                   className="btn-reserve"
