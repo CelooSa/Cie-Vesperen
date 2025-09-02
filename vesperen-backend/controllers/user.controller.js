@@ -99,7 +99,7 @@ const signIn = async (req, res) => {
 };
 
 const getAllUsers = async (req, res) => {
-    try {
+  try {
     const all_users = await User.find();
     res.status(200).json(all_users);
   } catch (error) {
@@ -153,7 +153,7 @@ const updateUser = async (req, res, next) => {
 
 const updateProfile = async (req, res) => {
   try {
-    const userId =req.user.id;
+    const userId = req.user.id;
     const allowedUpdates = { ...req.body };
     delete allowedUpdates.role; // pour éviter que l'utilisateur change son rôle
 
@@ -164,9 +164,6 @@ const updateProfile = async (req, res) => {
   }
 };
 
-
-
-
 module.exports = {
   postUser,
   signIn,
@@ -174,6 +171,6 @@ module.exports = {
   getUserById,
   deleteUser,
   updateUser,
+  updateProfile, 
   verifyEmail,
-  updateProfile,
 };
