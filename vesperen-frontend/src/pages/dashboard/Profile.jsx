@@ -70,7 +70,7 @@ const Profile = () => {
     setMessage({ type: '', text: '' });
 
     try {
-      const response = await fetch('/api/user/profile', {
+      const response = await fetch('/api/users/me', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

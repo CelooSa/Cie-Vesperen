@@ -17,7 +17,7 @@ export default function DashboardLayout({ user }) {
   const userNavigation = [
     { to: "/dashboard/profile", label: "Mon Profil", icon: "👤" },
     { to: "/dashboard/reservations", label: "Mes Réservations", icon: "🎫" },
-    { to: "/dashboard/book-ticket", label: "Réserver un Billet", icon: "🎭" },
+    { to: "/dashboard/tickets", label: "Réserver un Billet", icon: "🎭" },
   ];
 
   // celle pour l'admin
