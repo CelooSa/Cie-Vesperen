@@ -99,7 +99,7 @@ const signIn = async (req, res) => {
 };
 
 const getAllUsers = async (req, res) => {
-  try {
+    try {
     const all_users = await User.find();
     res.status(200).json(all_users);
   } catch (error) {
@@ -125,7 +125,7 @@ const deleteUser = async (req, res, next) => {
     const deletedUser = await User.findByIdAndDelete(req.params.id);
     return res.status(200).json({
       message: "User deleted successfully",
-      deletedUser,
+      deleteUser,
     });
   } catch (error) {
     return res.status(500).json(error.message);
@@ -139,7 +139,7 @@ const updateUser = async (req, res, next) => {
 
     const userUpdated = await User.findByIdAndUpdate(
       req.params.id,
-      { $set: req.body },
+      { $set: allowedUpdates }, // j'ai enlevé el rôle pr preservation ds crea postman
       { new: true }
     );
     res.status(200).json({
@@ -151,19 +151,6 @@ const updateUser = async (req, res, next) => {
   }
 };
 
-const updateProfile = async (req, res) => {
-  try {
-    const userId = req.user.id;
-    const allowedUpdates = { ...req.body };
-    delete allowedUpdates.role; // pour éviter que l'utilisateur change son rôle
-
-    const userUpdated = await User.findByIdAndUpdate(userId, allowedUpdates, { new: true });
-    res.status(200).json({ message: "Profil mis à jour", userUpdated });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
 module.exports = {
   postUser,
   signIn,
@@ -171,6 +158,5 @@ module.exports = {
   getUserById,
   deleteUser,
   updateUser,
-  updateProfile, 
   verifyEmail,
 };

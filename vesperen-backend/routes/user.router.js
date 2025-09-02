@@ -8,7 +8,7 @@ const verifyAdmin = require("../middlewares/verifyadmin");
 router.post("/signUp", UserController.postUser);
 router.post("/signIn", UserController.signIn);
 router.get("/verify/:token", UserController.verifyEmail);
-router.put("/profile/update", verifyToken, UserController.updateMyProfile);
+
 
 
 
