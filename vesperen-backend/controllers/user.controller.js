@@ -91,12 +91,132 @@ const signIn = async (req, res) => {
       message: "Connexion réussie",
       token,
       user: others,
+      isAdmin: user.roler === 'admin'
     });
   } catch (error) {
     console.log("Error :", error.message);
     res.status(500).json(error.message);
   }
 };
+
+
+// methodes pr reinitialiser mdp
+
+const forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ message: 'Email requis' });
+    }
+
+    // Vérifier si l'utilisateur existe
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(200).json({ 
+        message: 'Si cet email existe, vous recevrez un lien de réinitialisation' 
+      });
+    }
+
+  // Générer un token de réinitialisation
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    const resetTokenExpiry = Date.now() + 3600000; // 1 heure
+
+    // Sauvegarder le token dans la base de données
+    user.resetPasswordToken = resetToken;
+    user.resetPasswordExpiry = resetTokenExpiry;
+    await user.save();
+
+    const resetUrl = `${process.env.FRONTEND_URL || 'http://localhost:8000'}/password-reset/${resetToken}`;
+console.log(`Lien de réinitialisation: ${resetUrl}`);
+
+    res.status(200).json({ 
+      message: 'Email de réinitialisation envoyé avec succès' 
+    });
+
+  } catch (error) {
+    console.error('Erreur lors de la demande de réinitialisation:', error);
+    res.status(500).json({ message: 'Erreur serveur' });
+  }
+};
+
+const verifyResetToken = async (req, res) => {
+  try {
+    const { token } = req.params;
+
+    if (!token) {
+      return res.status(400).json({ message: 'Token manquant' });
+    }
+
+    // Trouver l'utilisateur avec ce token
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpiry: { $gt: Date.now() } 
+    });
+
+    if (!user) {
+      return res.status(400).json({ 
+        message: 'Token invalide ou expiré' 
+      });
+    }
+
+    res.status(200).json({ 
+      message: 'Token valide',
+      userId: user._id 
+    });
+
+  } catch (error) {
+    console.error('Erreur lors de la vérification du token:', error);
+    res.status(500).json({ message: 'Erreur serveur' });
+  }
+};
+
+const resetPassword = async (req, res) => {
+  try {
+    const { token, newPassword } = req.body;
+
+    if (!token || !newPassword) {
+      return res.status(400).json({ 
+        message: 'Token et nouveau mot de passe requis' 
+      });
+    }
+
+    if (newPassword.length < 6) {
+      return res.status(400).json({ 
+        message: 'Le mot de passe doit contenir au moins 6 caractères' 
+      });
+    }
+
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpiry: { $gt: Date.now() }
+    });
+
+    if (!user) {
+      return res.status(400).json({ 
+        message: 'Token invalide ou expiré' 
+      });
+    }
+
+    // Hasher et sauvegarder le nouveau mot de passe
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    user.password = hashedPassword;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpiry = undefined;
+    await user.save();
+
+    res.status(200).json({ 
+      message: 'Mot de passe réinitialisé avec succès' 
+    });
+
+  } catch (error) {
+    console.error('Erreur lors de la réinitialisation:', error);
+    res.status(500).json({ message: 'Erreur serveur' });
+  }
+};
+
+
 
 const getAllUsers = async (req, res) => {
     try {
@@ -139,7 +259,7 @@ const updateUser = async (req, res, next) => {
 
     const userUpdated = await User.findByIdAndUpdate(
       req.params.id,
-      { $set: allowedUpdates }, // j'ai enlevé el rôle pr preservation ds crea postman
+      { $set: req.body }, // j'ai enlevé el rôle pr preservation ds crea postman
       { new: true }
     );
     res.status(200).json({
@@ -159,4 +279,7 @@ module.exports = {
   deleteUser,
   updateUser,
   verifyEmail,
+  forgotPassword,
+  verifyResetToken,
+  resetPassword,
 };

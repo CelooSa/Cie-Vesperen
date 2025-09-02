@@ -9,7 +9,9 @@ router.post("/signUp", UserController.postUser);
 router.post("/signIn", UserController.signIn);
 router.get("/verify/:token", UserController.verifyEmail);
 
-
+router.post("/forgot-password", UserController.forgotPassword);
+router.post("/verify-reset-token/:token", UserController.verifyResetToken);
+router.post("/reset-password", UserController.resetPassword);
 
 
 

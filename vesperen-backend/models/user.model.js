@@ -67,6 +67,16 @@ const userSchema = mongoose.Schema(
       type: Boolean,
       default: true,
     },
+
+    //  POUR LE RESET DU MDP
+    resetPasswordToken: {
+      type: String,
+      default: undefined, // Pas de valeur par défaut, sera undefined si pas utilisé
+    },
+    resetPasswordExpiry: {
+      type: Date,
+      default: undefined, 
+    },
   },
   {
     timestamps: true,
