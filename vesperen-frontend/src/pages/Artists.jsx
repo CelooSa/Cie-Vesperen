@@ -81,7 +81,7 @@ const Artists = () => {
           navigation
           loop={true}
           spaceBetween={50}
-          slidesPreview={1}
+          slidesPerView={1}
           className="artists-swiper"
         >
           {artists.map((artist) => (
