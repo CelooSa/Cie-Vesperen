@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import logo from "../../assets/Logo-compagnie-Vesperen.webp";
 import "../../styles/register.scss";
 
@@ -14,17 +15,24 @@ export default function Register() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Register data:", formData);
- 
+    try {
+      const res = await axios.post(
+        "https://cie-vesperen.onrender.com/api/users/signUp",
+        formData
+      );
+      console.log("User created:", res.data);
+      alert("Utilisateur créé avec succès ! Vérifiez votre email.");
+    } catch (error) {
+      console.error("Erreur création:", error);
+      alert("Erreur lors de la création");
+    }
   };
 
   return (
     <div className="register-page">
       <div className="register-container">
-
-        
         <div className="return-button">
           <Link to="/compte">← Return</Link>
         </div>
