@@ -11,7 +11,7 @@ const postUser = async (req, res) => {
   try {
     const passwordHashed = await bcrypt.hash(req.body.password, 10);
     const new_user = await User.create({
-      name: req.body.name,
+      name: req.body.username,
       email: req.body.email,
       password: passwordHashed,
       role: "user", // ici on a corrigé pr mettre TOUJOURS user par défaut
