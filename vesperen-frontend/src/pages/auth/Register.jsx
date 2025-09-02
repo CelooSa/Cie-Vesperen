@@ -5,7 +5,7 @@ import "../../styles/register.scss";
 
 export default function Register() {
   const [formData, setFormData] = useState({
-    username: "",
+    name: "",
     email: "",
     password: "",
   });
@@ -14,17 +14,36 @@ export default function Register() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Register data:", formData);
- 
+
+    try {
+      const res = await fetch("https://cie-vesperen.onrender.com/api/users/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+        credentials: "include",
+      });
+
+      const data = await res.json();
+      console.log("Register response:", data);
+
+      if (!res.ok) {
+        alert(data.message || "Erreur lors de la création du compte");
+      } else {
+        alert("Compte créé avec succès !");
+      }
+    } catch (error) {
+      console.error("Register error:", error);
+      alert("Impossible de créer un compte.");
+    }
   };
 
   return (
     <div className="register-page">
       <div className="register-container">
-
-        
         <div className="return-button">
           <Link to="/compte">← Return</Link>
         </div>
@@ -38,14 +57,15 @@ export default function Register() {
         <div className="form-container">
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="name">Username</label>
               <input
-                id="username"
-                name="username"
+                id="name"
+                name="name"
                 type="text"
-                value={formData.username}
+                value={formData.name}
                 onChange={handleChange}
                 required
+                autoComplete="username"
               />
             </div>
 
