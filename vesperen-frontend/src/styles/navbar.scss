@@ -69,20 +69,51 @@
 
 /* ça c'est ma partie RESPONSIVE pour portables */
 @media (max-width: 768px) {
-  .navbar {
+
+  /* mon nouveau bouton burger */
+  .burger {
+    display: flex; 
     flex-direction: column;
-    height: auto;
-    padding: 10px;
+    gap: 5px;
+    cursor: pointer;
+    z-index: 2000;
   }
 
+  .burger span {
+    width: 25px;
+    height: 3px;
+    background: #fff;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+    /* mon  menu déroulant */
   .navbar-links {
+    position: absolute;
+    top: 80px;
+    right: 0;
+    background-color: rgb(43, 41, 41);
     flex-direction: column;
-    gap: 10px;
-    align-items: center;
+  
+       width: 200px;
+    max-height: 0; /* ça veut dire qu'il est fermé par défaut */
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    text-align: center;
   }
 
-  .navbarlogo img {
-    height: 30px;
-    max-height: 30px;
+  .navbar-links.show {
+    max-height: 500px; /* menu ouvert */
+  }
+
+  .navbar-links li {
+    margin: 10px 0;
+  }
+
+  
+  .navbar-button {
+    margin: 10px 0;
   }
 }
+
+  
