@@ -139,7 +139,7 @@ const updateUser = async (req, res, next) => {
 
     const userUpdated = await User.findByIdAndUpdate(
       req.params.id,
-      { $set: allowedUpdates }, // j'ai enlevé el rôle pr preservation ds crea postman
+      { $set: req.body },
       { new: true }
     );
     res.status(200).json({
