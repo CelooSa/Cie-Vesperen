@@ -1,20 +1,19 @@
-const Router = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const ENV = require("../config/env");
 const createError = require("../middlewares/error");
 const sendEmail = require("../services/nodemailer");
-const User = require("../models/user.model");
+const User = require("../models/user.model"); // Gardez votre nom de modèle original
 const crypto = require("crypto");
 
-const postUser = async (req, res) => {
+exports.postUser = async (req, res) => {
   try {
     const passwordHashed = await bcrypt.hash(req.body.password, 10);
     const new_user = await User.create({
       name: req.body.username,
       email: req.body.email,
       password: passwordHashed,
-      role: "user", // ici on a corrigé pr mettre TOUJOURS user par défaut
+      role: "user",
       isVerified: false,
     });
 
@@ -33,7 +32,7 @@ const postUser = async (req, res) => {
   }
 };
 
-const verifyEmail = async (req, res, next) => {
+exports.verifyEmail = async (req, res, next) => {
   try {
     const { token } = req.params;
     if (!token) {
@@ -55,13 +54,11 @@ const verifyEmail = async (req, res, next) => {
   }
 };
 
-const signIn = async (req, res) => {
+exports.signIn = async (req, res) => {
   try {
-    // d'abord on vérif que l'user existe
     const user = await User.findOne({ email: req.body.email });
     if (!user) return res.status(404).json("Utilisateur introuvable");
 
-    //ensuite on vérifie le mdp
     const comparePassword = await bcrypt.compare(
       req.body.password,
       user.password
@@ -69,16 +66,14 @@ const signIn = async (req, res) => {
     if (!comparePassword)
       return res.status(400).json("Erreur d'identification !");
 
-    // ici je vérif d'abord si l'user est vérifié et ENSUITE ==>
     if (!user.isVerified) {
       return res.status(403).json({
         message: `Veuillez vérifier votre email afin d'accéder à votre compte.`,
       });
     }
-    // ==>Je génere le TOKEN (pas avant!)
+
     const token = jwt.sign({ id: user._id }, ENV.TOKEN, { expiresIn: "24h" });
 
-    // ensuite on prepare la réponse et on met le cookie
     const { password, ...others } = user._doc;
     res.cookie("access_token", token, {
       httpOnly: true,
@@ -86,7 +81,7 @@ const signIn = async (req, res) => {
       secure: false,
       sameSite: "strict",
     });
-    //Et SEULEMENT LA on ENVOIE la réponse finale
+
     res.status(200).json({
       message: "Connexion réussie",
       token,
@@ -98,82 +93,152 @@ const signIn = async (req, res) => {
   }
 };
 
-const getAllUsers = async (req, res) => {
-    try {
-    const all_users = await User.find();
-    res.status(200).json(all_users);
-  } catch (error) {
-    res.status(500).json(error.message);
+exports.updateMyProfile = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { 
+      firstName, 
+      lastName, 
+      email, 
+      phone, 
+      dateOfBirth, 
+      address, 
+      city, 
+      postalCode, 
+      preferences,
+      password, 
+      currentPassword 
+    } = req.body;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "Utilisateur non trouvé" });
+    }
+
+    const updates = {};
+
+    if (firstName) updates.firstName = firstName;
+    if (lastName) updates.lastName = lastName;
+    if (phone) updates.phone = phone;
+    if (dateOfBirth) updates.dateOfBirth = dateOfBirth;
+    if (address) updates.address = address;
+    if (city) updates.city = city;
+    if (postalCode) updates.postalCode = postalCode;
+    if (preferences) updates.preferences = preferences;
+
+    if (email && email !== user.email) {
+      const existingUser = await User.findOne({ email, _id: { $ne: userId } });
+      if (existingUser) {
+        return res.status(400).json({ message: "Email déjà utilisé par un autre compte" });
+      }
+      updates.email = email;
+    }
+
+    if (password) {
+      if (!currentPassword) {
+        return res.status(400).json({ message: "Mot de passe actuel requis" });
+      }
+      
+      const validPassword = await bcrypt.compare(currentPassword, user.password);
+      if (!validPassword) {
+        return res.status(400).json({ message: "Mot de passe actuel incorrect" });
+      }
+
+      const salt = await bcrypt.genSalt(10);
+      updates.password = await bcrypt.hash(password, salt);
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId, 
+      updates, 
+      { 
+        new: true,
+        runValidators: true
+      }
+    ).select('-password');
+
+    res.status(200).json({ 
+      message: "Profil mis à jour avec succès", 
+      user: updatedUser 
+    });
+  } catch (err) {
+    console.error('Erreur updateMyProfile:', err);
+    if (err.name === 'ValidationError') {
+      return res.status(400).json({ 
+        message: "Données invalides", 
+        errors: Object.values(err.errors).map(e => e.message)
+      });
+    }
+    res.status(500).json({ message: err.message });
   }
 };
 
-const getUserById = async (req, res) => {
+exports.getAllUsers = async (req, res) => {
   try {
-    const userId = await User.findById(req.params.id);
-    if (!userId) return res.status(404).json("User not found !");
-    return res.status(200).json(userId);
-  } catch (error) {
-    return res.status(500).json(error.message);
+    const users = await User.find().select('-password');
+    res.status(200).json(users);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };
 
-const deleteUser = async (req, res, next) => {
+exports.getUserById = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
-    if (!user) return res.status(404).json("User not found");
+    const user = await User.findById(req.params.id).select('-password');
+    if (!user) {
+      return res.status(404).json({ message: "Utilisateur non trouvé" });
+    }
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
 
+exports.updateUser = async (req, res) => {
+  try {
+    const updates = req.body;
+    
+    if (updates.password) {
+      const salt = await bcrypt.genSalt(10);
+      updates.password = await bcrypt.hash(updates.password, salt);
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.id, 
+      updates, 
+      { 
+        new: true,
+        runValidators: true
+      }
+    ).select('-password');
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "Utilisateur non trouvé" });
+    }
+
+    res.status(200).json({ 
+      message: "Utilisateur mis à jour avec succès", 
+      user: updatedUser 
+    });
+  } catch (err) {
+    if (err.name === 'ValidationError') {
+      return res.status(400).json({ 
+        message: "Données invalides", 
+        errors: Object.values(err.errors).map(e => e.message)
+      });
+    }
+    res.status(500).json({ message: err.message });
+  }
+};
+
+exports.deleteUser = async (req, res) => {
+  try {
     const deletedUser = await User.findByIdAndDelete(req.params.id);
-    return res.status(200).json({
-      message: "User deleted successfully",
-      deletedUser,
-    });
-  } catch (error) {
-    return res.status(500).json(error.message);
+    if (!deletedUser) {
+      return res.status(404).json({ message: "Utilisateur non trouvé" });
+    }
+    res.status(200).json({ message: "Utilisateur supprimé avec succès" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
-};
-
-const updateUser = async (req, res, next) => {
-  try {
-    const user = await User.findById(req.params.id);
-    if (!user) return res.status(404).json("User not found");
-
-    const userUpdated = await User.findByIdAndUpdate(
-      req.params.id,
-      { $set: req.body },
-      { new: true }
-    );
-    res.status(200).json({
-      message: "User Updated",
-      userUpdated,
-    });
-  } catch (error) {
-    return res.status(500).json(error.message);
-  }
-};
-
-const updateProfile = async (req, res) => {
-  try {
-    const userId =req.user.id;
-    const allowedUpdates = { ...req.body };
-    delete allowedUpdates.role; // pour éviter que l'utilisateur change son rôle
-
-    const userUpdated = await User.findByIdAndUpdate(userId, allowedUpdates, { new: true });
-    res.status(200).json({ message: "Profil mis à jour", userUpdated });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-
-
-
-module.exports = {
-  postUser,
-  signIn,
-  getAllUsers,
-  getUserById,
-  deleteUser,
-  updateUser,
-  verifyEmail,
-  updateProfile,
 };
