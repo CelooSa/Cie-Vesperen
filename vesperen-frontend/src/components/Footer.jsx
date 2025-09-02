@@ -42,7 +42,7 @@ const Footer = () => {
         <div className="footer-section">
           <h4>Suivez-nous</h4>
           <div className="social-icons">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.facebook.com/?locale=fr_FR" target="_blank" rel="noopener noreferrer">
             <TiSocialFacebook />
             </a>
 

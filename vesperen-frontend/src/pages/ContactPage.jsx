@@ -5,10 +5,16 @@ import { SlSocialInstagram, SlSocialYoutube } from "react-icons/sl";
 import "../styles/contact-page.scss";
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
   const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
 
-  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,7 +41,8 @@ export default function ContactPage() {
         <h1>Contactez-nous</h1>
         <p>
           Une question ? Un projet ? Nous sommes là pour vous accompagner dans
-          votre découverte des arts du cirque ou pour organiser un spectacle sur mesure.
+          votre découverte des arts du cirque ou pour organiser un spectacle sur
+          mesure.
         </p>
 
         <div className="contact-grid">
@@ -52,21 +59,48 @@ export default function ContactPage() {
             )}
 
             <label>Nom complet *</label>
-            <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
 
             <label>Email *</label>
-            <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
 
             <label>Sujet *</label>
-            <select name="subject" value={formData.subject} onChange={handleChange} required>
+            <select
+              name="subject"
+              value={formData.subject}
+              onChange={handleChange}
+              required
+            >
               <option value="">Choisissez un sujet</option>
-              <option value="Organisation de spectacle">Organisation de spectacle</option>
-              <option value="Découverte & ateliers">Découverte & ateliers</option>
+              <option value="Organisation de spectacle">
+                Organisation de spectacle
+              </option>
+              <option value="Découverte & ateliers">
+                Découverte & ateliers
+              </option>
               <option value="Autre demande">Autre demande</option>
             </select>
 
             <label>Message *</label>
-            <textarea name="message" rows="5" value={formData.message} onChange={handleChange} required />
+            <textarea
+              name="message"
+              rows="5"
+              value={formData.message}
+              onChange={handleChange}
+              required
+            />
 
             <button type="submit">Envoyer le message</button>
           </form>
@@ -84,15 +118,6 @@ export default function ContactPage() {
               <p>Lundi - Vendredi : 9h00 - 21h00</p>
               <p>Samedi : 10h00 - 18h00</p>
               <p>Dimanche : 14h00 - 18h00</p>
-            </div>
-
-            <div className="info-block">
-              <h2>Suivez-nous</h2>
-              <div className="social-icons">
-                <a href="#" aria-label="Facebook"><TiSocialFacebook /></a>
-                <a href="#" aria-label="Instagram"><SlSocialInstagram /></a>
-                <a href="#" aria-label="YouTube"><SlSocialYoutube /></a>
-              </div>
             </div>
           </div>
         </div>
