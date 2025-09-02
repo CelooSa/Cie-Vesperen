@@ -167,19 +167,6 @@ const updateProfile = async (req, res) => {
 
 
 
-
-  }
-
-
-
-
-
-}
-
-
-
-
-
 module.exports = {
   postUser,
   signIn,
@@ -188,4 +175,5 @@ module.exports = {
   deleteUser,
   updateUser,
   verifyEmail,
+  updateProfile,
 };
