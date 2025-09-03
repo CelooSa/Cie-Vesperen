@@ -8,6 +8,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import LoginPage from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import ForgotPassword from "./pages/auth/ForgotPassword";
+import PasswordRequest from "./pages/auth/PasswordRequest";
 import VerifyEmail from "./pages/auth/VerifyEmail";
 
 import DashboardLayout from "./pages/dashboard/DashboardLayout";
@@ -32,6 +33,8 @@ function App() {
     location.pathname === "/compte" ||
     location.pathname === "/register" ||
     location.pathname === "/forgot-password" ||
+    location.pathname === "/password-reset" ||
+    location.pathname.startsWith("/password-reset/") ||
     location.pathname === "/verify-email";
 
   const isLoginPage = location.pathname === "/compte";
@@ -52,6 +55,7 @@ function App() {
         <Route path="/compte" element={<LoginPage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/password-reset/:token" element={<PasswordRequest />} />
         <Route path="/verify-email" element={<VerifyEmail />} />
 
         {/*  mes pages dashboard protégé avec des sous-routes */}
